@@ -1,0 +1,36 @@
+mainhall,48,40,2	script	Information	833,{
+	mes "[Information]";
+	mes "me information...";
+	mes "How can I help you?";
+	switch(select("Daily Quest:Headgear Quest:Armor Quest:Weapon Quest:Dyestuffs Quest:Treasure Hunting Quest:Break the Seal Quest")){
+		case 1:
+			warp "mainhall", 42, 57;
+			close;
+		case 2:
+			warp "mainhall", 56, 64;
+			close;
+		case 3:
+			warp "mainhall", 78, 64;
+			close;
+		case 4:
+			warp "mainhall", 90, 58;
+			close;
+		case 5:
+			warp "mainhall", 69, 31;
+			close;
+		case 6:
+			warp "mainhall", 77, 40;
+			close;
+		case 7:
+			warp "mainhall", 101, 50;
+			close;
+	}
+	close;
+
+OnInit:
+	while (1) {
+		showscript "Information", getnpcid(0);
+		sleep 1000;
+	}
+end;
+}

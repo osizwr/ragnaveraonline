@@ -1,0 +1,48 @@
+1@eom,99,206,6	script	Aldrif	811,{
+	
+	mes "[^0000FF Aldrif ^000000]";
+	mes "Hello adventurer";
+	mes "Please choose race would you like to be";
+	next;
+	if(race_active==1) {
+	mes "[^0000FF Aldrif ^000000]";
+	mes"I'm done with you.";
+	end;
+	}
+	switch(select("Pyro:Hydro:Anemo:Geo:Electro:Omen:Human")){
+		case 1:
+			callfunc "BecomeRace", 14;
+			break;
+		case 2:
+			callfunc "BecomeRace", 13;
+			break;
+		case 3:
+			callfunc "BecomeRace", 12;
+			break;
+		case 4:
+			callfunc "BecomeRace", 11;
+			break;
+		case 5:
+			callfunc "BecomeRace", 15;
+			break;
+		case 6:
+			callfunc "BecomeRace", 16;
+			break;
+		case 7:
+			set #race, 1;
+			close;	
+	}
+end;
+}
+
+function	script	BecomeRace	{		
+	
+	set race_id,getarg(0);	// Race ID 
+	callfunc("setlook2", 6, $RacePals[race_id*4+2]);
+	callfunc("setlook2", 7, $RacePals[race_id*4]);
+	set race_active,1;
+	specialeffect2 248;
+	set #race, 1;
+	end;
+	
+}

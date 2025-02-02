@@ -1,0 +1,301 @@
+-	script	Kafra#Custom	115,{
+set @header$, "[^FF8800 Kafra ^000000]";
+	mes @header$;
+	mes "Yoppo!~";
+	mes " ";
+	mes "Welcome to the Kafra Corporation. How may i assist you?";
+	next;
+	switch(select("Save","Use Storage","Cancel")){
+	case 1:
+		if(strcharinfo(3) == "prontera"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Prontera.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "prontera",155,185;
+		}
+		if(strcharinfo(3) == "morocc"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Morocc.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "morocc",156,93;
+		}
+		if(strcharinfo(3) == "geffen"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Geffen.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "geffen",119,59;
+		}
+		if(strcharinfo(3) == "payon"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Payon.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "payon",164,227;
+		}
+		if(strcharinfo(3) == "alberta"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Alberta.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "alberta",192,147;
+		}
+		if(strcharinfo(3) == "izlude"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Izlude.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "izlude",128,114;
+		}
+		if(strcharinfo(3) == "aldebaran"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Aldebaran.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "aldebaran",140,116;
+		}
+		if(strcharinfo(3) == "xmas"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Lutie.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "xmas",147,134;
+		}
+		if(strcharinfo(3) == "comodo"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Comodo.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "comodo",198,146;
+		}
+		if(strcharinfo(3) == "yuno"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Yuno.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "yuno",157,176;
+		}
+		if(strcharinfo(3) == "amatsu"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Amatsu.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "amatsu",113,139;
+		}
+		if(strcharinfo(3) == "gonryun"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Gonryun.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "gonryun",160,120;
+		}
+		if(strcharinfo(3) == "umbala"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Umbala.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "umbala",89,157;
+		}
+		if(strcharinfo(3) == "jawaii"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the island of Jawaii.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "jawaii",249,127;
+		}
+		if(strcharinfo(3) == "ayothaya"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Ayothaya.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "ayothaya",221,177;
+		}
+		if(strcharinfo(3) == "einbroch"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Einbroch.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "einbroch",238,198;
+		}
+		if(strcharinfo(3) == "lighthalzen"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Lighthalzen.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "lighthalzen",158,92;
+		}
+		if(strcharinfo(3) == "einbech"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Einbech.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "einbech",70,95;
+		}
+		if(strcharinfo(3) == "hugel"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Hugel.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "hugel",96,145;
+		}
+		if(strcharinfo(3) == "rachel"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Rachel.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "rachel",130,110;
+		}
+		if(strcharinfo(3) == "veins"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Veins.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "veins",216,123;
+		}
+		if(strcharinfo(3) == "moscovia"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Moscovia.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "moscovia",223,184;
+		}
+		if(strcharinfo(3) == "mid_camp"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the camp of Midgard Expedition.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "mid_camp",180,240;
+		}
+		if(strcharinfo(3) == "manuk"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the mining town of Manuk.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "manuk",282,138;
+		}
+		if(strcharinfo(3) == "splendide"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Splendide.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "splendide",201,147;
+		}
+		if(strcharinfo(3) == "brasilis"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the city of Braisilis.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "brasilis",195,211;
+		}
+		if(strcharinfo(3) == "dicastes01"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of El Dicastes.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "dicastes01",198,187;
+		}
+		if(strcharinfo(3) == "mora"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Mora.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "mora",55,145;
+		}
+		if(strcharinfo(3) == "dewata"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the island of Dewata.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "dewata",200,180;
+		}
+		if(strcharinfo(3) == "malangdo"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the island of Malangdo.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "malangdo",140,114;
+		}
+		if(strcharinfo(3) == "malaya"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Port Malaya.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "malaya",240,200;
+		}
+		if(strcharinfo(3) == "eclage"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Eclage.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "eclage",XXX,XXX;
+		}
+		if(strcharinfo(3) == "lasagna"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the town of Lasagna.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "lasagna",193,182;
+		}
+		if(strcharinfo(3) == "veratemple"){
+			mes @header$;
+			mes "Your respawn point has been saved here in the temple of Vera.";
+			mes " ";
+			mes "Thank you for using the Kafra Service.";
+			savepoint "veratemple",120,142;
+		}
+		close;
+	case 2:
+		mes @header$;
+		mes "Here, let me open your Storage for you. Also, you can open your storage anytime via @storage.";
+		mes " ";
+		mes "Thank you for using the Kafra Service.";
+		close2;
+		cutin "",255;
+		openstorage;
+		end;
+	case 3:
+		mes @header$;
+		mes "Comeback anytime.";
+		close3;
+	}
+}
+
+morocc,148,100,6	duplicate(Kafra#Custom)	Kafra#morocc	117
+geffen,115,65,6	duplicate(Kafra#Custom)	Kafra#geffen	115
+payon,173,223,4	duplicate(Kafra#Custom)	Kafra#payon	115
+alberta,197,147,4	duplicate(Kafra#Custom)	Kafra#alberta	115
+izlude,126,118,6	duplicate(Kafra#Custom)	Kafra#izlude	115
+aldebaran,133,113,6	duplicate(Kafra#Custom)	Kafra#aldebaran	115
+xmas,149,136,4	duplicate(Kafra#Custom)	Kafra#xmas	115
+comodo,195,150,4	duplicate(Kafra#Custom)	Kafra#comodo	115
+yuno,152,187,6	duplicate(Kafra#Custom)	Kafra#yuno	115
+amatsu,102,149,6	duplicate(Kafra#Custom)	Kafra#amatsu	115
+gonryun,166,125,4	duplicate(Kafra#Custom)	Kafra#gonryun	115
+umbala,84,164,4	duplicate(Kafra#Custom)	Kafra#umbala	115
+louyang,209,103,6	duplicate(Kafra#Custom)	Kafra#louyang	115
+jawaii,254,128,4	duplicate(Kafra#Custom)	Kafra#jawaii	115
+ayothaya,212,169,6	duplicate(Kafra#Custom)	Kafra#ayothaya	115
+einbroch,242,205,4	duplicate(Kafra#Custom)	Kafra#einbroch	115
+lighthalzen,164,100,4	duplicate(Kafra#Custom)	Kafra#lighthalzen	115
+einbech,66,102,6	duplicate(Kafra#Custom)	Kafra#einbech	115
+hugel,88,147,6	duplicate(Kafra#Custom)	Kafra#hugel	115
+rachel,123,114,6	duplicate(Kafra#Custom)	Kafra#rachel	115
+veins,210,119,7	duplicate(Kafra#Custom)	Kafra#veins	115
+moscovia,232,190,4	duplicate(Kafra#Custom)	Kafra#moscovia	115
+mid_camp,191,244,4	duplicate(Kafra#Custom)	Kafra#mid_camp	115
+brasilis,201,208,4	duplicate(Kafra#Custom)	Kafra#brasilis	115
+dicastes01,190,190,6	duplicate(Kafra#Custom)	Kafra#dicastes01	115
+mora,61,138,4	duplicate(Kafra#Custom)	Kafra#mora	115
+malangdo,150,120,4	duplicate(Kafra#Custom)	Kafra#malangdo	115
+malaya,235,204,4	duplicate(Kafra#Custom)	Kafra#malaya	115
+dewata,192,184,6	duplicate(Kafra#Custom)	Kafra#dewata	115
+lasagna,181,178,6	duplicate(Kafra#Custom)	Kafra#lasagna	115
+veratemple,123,154,3	duplicate(Kafra#Custom)	Kafra#veratemple	113
+
+/*
+XXXX,XXX,XXX,X	duplicate(Kafra#Custom)	Kafra#XXXX	115
+XXXX,XXX,XXX,X	duplicate(Kafra#Custom)	Kafra#XXXX	115
+XXXX,XXX,XXX,X	duplicate(Kafra#Custom)	Kafra#XXXX	115
+*/

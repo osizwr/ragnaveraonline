@@ -1,0 +1,196 @@
+function	script	armorRefine	{
+    .@arg_count = getargcount();
+    .@display_info = 1;
+    .@server_max_refine = (( checkre(0) )? 20:10 );
+
+    if( .@arg_count < 8 ){
+        message strcharinfo(0),"Insufficient Arg. Min. required 8 Args but received only "+.@arg_count;
+        return;
+    }
+
+    while( .@i < .@arg_count ){
+        .@arg[.@i] = getarg( .@i );
+        .@i++;
+    }
+
+    if( .@arg[2] > .@server_max_refine ){
+        message strcharinfo(0),"[Arg:3] RefineFunc Max Refine must not exceed "+.@server_max_refine +" but received "+.@arg[2]+".";
+        return;
+    }
+
+    if( !.@arg[3] ){
+        message strcharinfo(0),"[Arg:4] RefineFunc Count must not 0.";
+        return;
+    }
+
+    if( .@arg[5] < 0 ){
+        message strcharinfo(0),"[Arg:6] RefineFunc Refine Rate must not Negative. Received "+.@arg[5];
+        return;
+    }
+
+    if( .@arg[6] > 0 ){
+        message strcharinfo(0),"[Arg:7] RefineFunc Failure Decrement must not Positive. Received "+.@arg[6];
+        return;
+    }
+
+    if( .@arg[8] < 0 ){
+        message strcharinfo(0),"[Arg:9] RefineFunc Bonus Rate must not Negative. Received "+.@arg[8];
+        return;
+    }
+
+    if( .@arg[9] )
+        if( getitemname( .@arg[9] ) == "null" ){
+            message strcharinfo(0),"[Arg:10] RefineFunc Invalid Bonus Rate Item ID "+.@arg[9];
+            return;
+        }
+
+    .@i = 1;
+    while( .@i < 14 ){
+        .@equip_id = getequipid( .@i );
+        if( .@equip_id > 0 ){
+            .@equip_enableref = (( .@arg[4] )? getequipisenableref( .@i ):1 );
+            
+            if( .@arg[0] & ( 1 << ( .@i-1 ) ) && .@equip_enableref ){
+                .@equip_refine = getequiprefinerycnt( .@i );
+                .@equip_slot = getitemslots( .@equip_id );
+                if( .@equip_refine >= .@arg[1] && .@equip_refine < .@arg[2] ){
+                    set .@menu$,.@menu$ + ( ( .@equip_refine )?"+"+.@equip_refine+" ":"" ) + getitemname( .@equip_id ) + " ["+.@equip_slot+"]";
+                    .@equipment_count++;
+                }
+            }
+        }
+        set .@menu$,.@menu$ + ":";
+        .@i++;
+    }
+
+    if( !.@equipment_count ){
+		mes "[ Blacksmith: Brokkr ]";
+        mes "Sorry, but you didn't have equipment that refined between "+.@arg[1]+" ~ "+.@arg[2]+" for refine.";
+        end;
+    }
+
+    .@equip_part = select( .@menu$ );
+    .@equip_id = getequipid( .@equip_part );
+    .@equip_refine = getequiprefinerycnt( .@equip_part );
+    .@target_refine = .@equip_refine + .@arg[3];
+
+    if( .@target_refine > .@arg[2] ) 
+        .@target_refine = .@arg[2];
+    else if( .@target_refine < 0 )
+        .@target_refine = 0;
+    if( .@equip_refine == .@target_refine ){
+        message strcharinfo(0),"That's your current refine rate.";
+        close;
+    }
+
+    .@success_rate = (( .@arg[5] )? .@arg[5]:getequippercentrefinery( .@equip_part ) );
+
+    // Set requirement based on refine level
+        $@refinePrice = 10000000 + ( ( .@equip_refine ) * 10000000 );
+		@eluniumid = 985;	// Elunium ID
+		.@elunium_required = 0;
+
+	if( .@display_info ){
+		mes "[ Blacksmith: Brokkr ]";
+		mes "Target Refine: ^0055FF"+( ( .@target_refine )?"+"+.@target_refine:"" )+" "+getitemname( .@equip_id )+" ["+.@equip_slot+"]^000000";
+		mes "Success Rate: ^777777"+.@success_rate+"%^000000";
+		mes "Zeny Requirement: ^FF0000"+$@refinePrice+"^000000";
+		switch (.@target_refine) {
+			case 1:
+				.@elunium_required = 10;
+				break;
+			case 2:
+				.@elunium_required = 15;
+				break;
+			case 3:
+				.@elunium_required = 20;
+				break;
+			case 4:
+				.@elunium_required = 25;
+				break;
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+				.@elunium_required = 30;
+				break;
+			case 9:
+				.@elunium_required = 40;
+				break;
+			case 10:
+				.@elunium_required = 50;
+				break;
+			default:
+				// Handle cases where the target_refine is less than 1 or greater than 10
+				message strcharinfo(0), "Invalid refine level.";
+		}
+		mes "Item Requirement: ^FF0000"+.@elunium_required+"^000000 ^FF0000"+getitemname(@eluniumid)+"^000000";
+		if( .@success_rate < 50 ){
+			if( .@arg[8] ){
+				mes "^777777--------------------Optional--------------------^000000";
+				mes "Bonus Rate : ^777777"+.@arg[8]+"%^000000";
+			}
+			if( .@arg[9] ){
+				mes "Required Item : ^FF0000"+getitemname( .@arg[9] )+"^000000";
+			}
+		}
+		next;
+	}
+
+    // Check if player has enough zeny
+    if (Zeny < $@refinePrice) {
+		mes "[ Blacksmith: Brokkr ]";
+		mes "Stop wasting my time!";
+        message strcharinfo(0),"You don't have enough zeny. Required: "+$@refinePrice+" zeny.";
+        close;
+    }
+	if (countitem(@eluniumid) < .@elunium_required) {
+		mes "[ Blacksmith: Brokkr ]";
+		mes "Stop wasting my time!";
+        message strcharinfo(0),"You don't have enough elunium. Required: "+.@elunium_required+" "+getitemname(@eluniumid)+".";
+        close;
+    }
+
+    if( select( "[^0055FF"+.@success_rate+"%^000000] "+( ( .@arg[3] < 0 )?"De-":"" )+"Refine to ^0055FF"+( ( .@target_refine )?"+"+.@target_refine:"" )+" "+getitemname( .@equip_id )+" ["+.@equip_slot+"]^000000","Cancel" ) == 1 ){
+        if( getequipisequiped( .@equip_part ) ){
+            
+            if( .@arg[3] > 0 && .@success_rate < 100 ){
+                if( .@arg[9] ){
+                    if( countitem( .@arg[9] ) )
+                        switch(select("Continue:Use ^FF0000"+getitemname( .@arg[9] )+"^000000 to increase Refine Rate by ^FF0000"+.@arg[8]+"%^000000")) {
+							case 1:
+								.@success_rate += .@arg[8];
+								break;
+							case 2:
+								.@success_rate += .@arg[8];
+								delitem .@arg[9],1;
+								break;
+						}
+                }
+            }
+            
+            delequip .@equip_part;
+            if( rand( 100 ) < .@success_rate ){
+                getitem2 .@equip_id,1,1,.@target_refine,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],.@equip_card[3];
+                message strcharinfo(0),"Successfully refined to +"+.@target_refine+" "+getitemname( .@equip_id );
+                set Zeny, Zeny - $@refinePrice;
+				delitem @eluniumid,.@elunium_required;
+                specialeffect2 EF_REFINEOK;
+                close;
+            } else if( .@arg[6] && .@arg[3] && rand( 100 ) < .@arg[7] ){
+                .@target_refine = ( .@equip_refine + .@arg[6] );
+                if( .@target_refine < 0 ) .@target_refine = 0;
+                getitem2 .@equip_id,1,1,.@target_refine,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],.@equip_card[3];
+                message strcharinfo(0),"Failed and refine count dropped to +"+.@target_refine+" "+getitemname( .@equip_id );
+                set Zeny, Zeny - $@refinePrice;
+				delitem @eluniumid,.@elunium_required;
+            } else {
+                message strcharinfo(0),"Failed to refine and destroyed "+getitemname( .@equip_id );
+                set Zeny, Zeny - $@refinePrice;
+				delitem @eluniumid,.@elunium_required;
+            }
+            specialeffect2 EF_REFINEFAIL;
+        }
+    }
+    close;
+}

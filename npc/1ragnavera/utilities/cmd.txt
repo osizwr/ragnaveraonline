@@ -1,0 +1,10 @@
+-	script	Custom_Book_Commands	-1,{
+
+    OnInit:
+        bindatcmd "commands", strnpcinfo(3) + "::OnAtCommand";
+        end;
+ 
+    OnAtCommand:
+        readbook 2000000,1;
+        end;
+}

@@ -1,0 +1,38 @@
+veratemple,117,136,3	script	Card Security	89,{
+
+    // Define the list of images and corresponding codes
+    setarray .@images$, "gopinich_card", "gopinich_card", "gopinich_card", "gopinich_card", "";
+    setarray .@codes$, "GOPINICHCARD", "GOPINICHCARD", "GOPINICHCARD", "GOPINICHCARD", "GOPINICHCARD";
+
+    // Choose a random image and corresponding code
+    set .@index, rand(0, getarraysize(.@images$) - 1);
+    set .@selectedImage$, .@images$[.@index];
+    set .@correctCode$, .@codes$[.@index];
+
+    // Display bot check message and show the image as a cutin
+    mes "[ Anti Bot System ]";
+    mes "Bot Checking:";
+    mes "Please input the name of card image shown.";
+	mes "All Capslock, No Space, & add 'CARD'.";
+    next;
+
+    // Show the image with the cutin command
+    cutin .@selectedImage$, 4;
+
+    input .@inputCode$;
+    next;
+
+    // Remove the image from the screen
+    cutin "", 255;
+
+    // Check if the entered code matches the correct code for the image
+    if (.@inputCode$ == .@correctCode$) {
+        mes "[ Anti Bot ]";
+        mes "Thank you for your patience, you can now move on.";
+        close;
+    } else {
+        mes "[ Anti Bot ]";
+        mes "Incorrect input, please try again.";
+        close;
+    }
+}

@@ -1,0 +1,367 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2022 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Item Combo Database
+###########################################################################
+#
+# Settings
+#
+###########################################################################
+# - Combos:                 List of combo sets.
+#    - Combo:               Sequence of items to define a combo (minimum of 2 items).
+#       - <item name>       AEGIS name of the item
+#   Script                  Script to execute when one of the combos is equipped. (Default: null)
+#   Clear                   Remove the defined combos from database. (Default: false)
+###########################################################################
+
+Header:
+  Type: COMBO_DB
+  Version: 1
+
+Body:
+  - Combos:
+      - Combo:
+          - Hunter's_Pendant_II
+          - Life's_Stone_II
+      - Combo:
+          - Earrings_of_Aphrodite_II
+          - Life's_Stone_II
+      - Combo:
+          - Kathryn's_Brooch_II
+          - Life's_Stone_II
+      - Combo:
+          - Ring_of_Iniquity_II
+          - Life's_Stone_II
+      - Combo:
+          - Ring_of_Virtue_II
+          - Life's_Stone_II
+      - Combo:
+          - Ring_of_Sapphire_II
+          - Life's_Stone_II
+      - Combo:
+          - Bunch_of_Carnation_II
+          - Life's_Stone_II
+    Script: |
+      bonus bMaxHPrate,3;
+  - Combos:
+      - Combo:
+          - Hunter's_Pendant_II
+          - Acerium_Brooch_II
+      - Combo:
+          - Earrings_of_Aphrodite_II
+          - Acerium_Brooch_II
+      - Combo:
+          - Kathryn's_Brooch_II
+          - Acerium_Brooch_II
+      - Combo:
+          - Ring_of_Iniquity_II
+          - Acerium_Brooch_II
+      - Combo:
+          - Ring_of_Virtue_II
+          - Acerium_Brooch_II
+      - Combo:
+          - Ring_of_Sapphire_II
+          - Acerium_Brooch_II
+      - Combo:
+          - Bunch_of_Carnation_II
+          - Acerium_Brooch_II
+    Script: |
+      bonus2 bAddClass,Class_All,3;
+  - Combos:
+      - Combo:
+          - Hunter's_Pendant_II
+          - Sniper's_Dagger_II
+      - Combo:
+          - Earrings_of_Aphrodite_II
+          - Sniper's_Dagger_II
+      - Combo:
+          - Kathryn's_Brooch_II
+          - Sniper's_Dagger_II
+      - Combo:
+          - Ring_of_Iniquity_II
+          - Sniper's_Dagger_II
+      - Combo:
+          - Ring_of_Virtue_II
+          - Sniper's_Dagger_II
+      - Combo:
+          - Ring_of_Sapphire_II
+          - Sniper's_Dagger_II
+      - Combo:
+          - Bunch_of_Carnation_II
+          - Sniper's_Dagger_II
+    Script: |
+      bonus bLongAtkRate,3;
+  - Combos:
+      - Combo:
+          - Hunter's_Pendant_II
+          - Wizard's_Spell_Book_II
+      - Combo:
+          - Earrings_of_Aphrodite_II
+          - Wizard's_Spell_Book_II
+      - Combo:
+          - Kathryn's_Brooch_II
+          - Wizard's_Spell_Book_II
+      - Combo:
+          - Ring_of_Iniquity_II
+          - Wizard's_Spell_Book_II
+      - Combo:
+          - Ring_of_Virtue_II
+          - Wizard's_Spell_Book_II
+      - Combo:
+          - Ring_of_Sapphire_II
+          - Wizard's_Spell_Book_II
+      - Combo:
+          - Bunch_of_Carnation_II
+          - Wizard's_Spell_Book_II
+    Script: |
+      bonus bMatkRate,3;
+  - Combos:
+      - Combo:
+          - Hunter's_Pendant_II
+          - Pocket_Watch_II
+      - Combo:
+          - Earrings_of_Aphrodite_II
+          - Pocket_Watch_II
+      - Combo:
+          - Kathryn's_Brooch_II
+          - Pocket_Watch_II
+      - Combo:
+          - Ring_of_Iniquity_II
+          - Pocket_Watch_II
+      - Combo:
+          - Ring_of_Virtue_II
+          - Pocket_Watch_II
+      - Combo:
+          - Ring_of_Sapphire_II
+          - Pocket_Watch_II
+      - Combo:
+          - Bunch_of_Carnation_II
+          - Pocket_Watch_II
+    Script: |
+      bonus2 bSubClass,Class_All,3;
+  - Combos:
+      - Combo:
+          - Hunter's_Pendant_II
+          - Rogue_Knife_II
+      - Combo:
+          - Earrings_of_Aphrodite_II
+          - Rogue_Knife_II
+      - Combo:
+          - Kathryn's_Brooch_II
+          - Rogue_Knife_II
+      - Combo:
+          - Ring_of_Iniquity_II
+          - Rogue_Knife_II
+      - Combo:
+          - Ring_of_Virtue_II
+          - Rogue_Knife_II
+      - Combo:
+          - Ring_of_Sapphire_II
+          - Rogue_Knife_II
+      - Combo:
+          - Bunch_of_Carnation_II
+          - Rogue_Knife_II
+    Script: |
+      bonus bCritAtkRate,3;
+  - Combos:
+      - Combo:
+          - red_varmor
+          - red_vmanteau
+          - red_vshoes
+    Script: |
+      bonus bStr,1;
+  - Combos:
+      - Combo:
+          - white_varmor
+          - white_vmanteau
+          - white_vshoes
+    Script: |
+      bonus bAgi,1;
+  - Combos:
+      - Combo:
+          - green_varmor
+          - green_vmanteau
+          - green_vshoes
+    Script: |
+      bonus bVit,1;
+  - Combos:
+      - Combo:
+          - purple_varmor
+          - purple_vmanteau
+          - purple_vshoes
+    Script: |
+      bonus bInt,1;
+  - Combos:
+      - Combo:
+          - brown_varmor
+          - brown_vmanteau
+          - brown_vshoes
+    Script: |
+      bonus bDex,1;
+  - Combos:
+      - Combo:
+          - blue_varmor
+          - blue_vmanteau
+          - blue_vshoes
+    Script: |
+      bonus bLuk,1;
+  - Combos:
+      - Combo:
+          - black_varmor
+          - black_vmanteau
+          - black_vshoes
+    Script: |
+      bonus bAllStats,1;
+  - Combos:
+      - Combo:
+          - red_f_varmor
+          - red_f_vmanteau
+          - red_f_vshoes
+    Script: |
+      bonus bStr,1; bonus bAllStats,1;
+  - Combos:
+      - Combo:
+          - white_f_varmor
+          - white_f_vmanteau
+          - white_f_vshoes
+    Script: |
+      bonus bAgi,1; bonus bAllStats,1;
+  - Combos:
+      - Combo:
+          - green_f_varmor
+          - green_f_vmanteau
+          - green_f_vshoes
+    Script: |
+      bonus bVit,1; bonus bAllStats,1;
+  - Combos:
+      - Combo:
+          - purple_f_varmor
+          - purple_f_vmanteau
+          - purple_f_vshoes
+    Script: |
+      bonus bInt,1; bonus bAllStats,1;
+  - Combos:
+      - Combo:
+          - brown_f_varmor
+          - brown_f_vmanteau
+          - brown_f_vshoes
+    Script: |
+      bonus bDex,1; bonus bAllStats,1;
+  - Combos:
+      - Combo:
+          - blue_f_varmor
+          - blue_f_vmanteau
+          - blue_f_vshoes
+    Script: |
+      bonus bLuk,1; bonus bAllStats,1;
+  - Combos:
+      - Combo:
+          - Hat_Valkyrie_Red_I
+          - Wings_Dragon_Red
+    Script: |
+      bonus bStr,7; bonus2 bAddClass,Class_All,7;
+  - Combos:
+      - Combo:
+          - Hat_Valkyrie_Red_II
+          - Wings_Dragon_Red
+    Script: |
+      bonus bStr,10; bonus2 bAddClass,Class_All,7;
+  - Combos:
+      - Combo:
+          - New_Red_Valkyrie_Helm_III
+          - Wings_Dragon_Red
+    Script: |
+      bonus bStr,10; bonus2 bAddClass,Class_All,10;
+  - Combos:
+      - Combo:
+          - New_Red_Valkyrie_Helm_IV
+          - Wings_Dragon_Red
+    Script: |
+      bonus bStr,10; bonus2 bAddClass,Class_All,15;
+  - Combos:
+      - Combo:
+          - Hat_Valkyrie_Green_I
+          - Wings_Dragon_Green
+    Script: |
+      bonus bVit,7; bonus bMaxHPrate,7;
+  - Combos:
+      - Combo:
+          - Hat_Valkyrie_Green_II
+          - Wings_Dragon_Green
+    Script: |
+      bonus bVit,10; bonus bMaxHPrate,7;
+  - Combos:
+      - Combo:
+          - New_Green_Valkyrie_Helm_III
+          - Wings_Dragon_Green
+    Script: |
+      bonus bVit,10; bonus bMaxHPrate,10;
+  - Combos:
+      - Combo:
+          - New_Green_Valkyrie_Helm_IV
+          - Wings_Dragon_Green
+    Script: |
+      bonus bVit,10; bonus bMaxHPrate,15;
+  - Combos:
+      - Combo:
+          - Hat_Valkyrie_Purple_I
+          - Wings_Dragon_Violet
+    Script: |
+      bonus bInt,7; bonus bMatkRate,7;
+  - Combos:
+      - Combo:
+          - Hat_Valkyrie_Purple_II
+          - Wings_Dragon_Violet
+    Script: |
+      bonus bInt,10; bonus bMatkRate,7;
+  - Combos:
+      - Combo:
+          - New_Purple_Valkyrie_Helm_III
+          - Wings_Dragon_Violet
+    Script: |
+      bonus bInt,10; bonus bMatkRate,10;
+  - Combos:
+      - Combo:
+          - New_Purple_Valkyrie_Helm_IV
+          - Wings_Dragon_Violet
+    Script: |
+      bonus bInt,10; bonus bMatkRate,15;
+  - Combos:
+      - Combo:
+          - Hat_Valkyrie_Black_I
+          - Wings_Dragon_Black
+    Script: |
+      bonus bDex,7; bonus bLongAtkRate,7;
+  - Combos:
+      - Combo:
+          - Hat_Valkyrie_Black_II
+          - Wings_Dragon_Black
+    Script: |
+      bonus bDex,10; bonus bLongAtkRate,7;
+  - Combos:
+      - Combo:
+          - New_Black_Valkyrie_Helm_III
+          - Wings_Dragon_Black
+    Script: |
+      bonus bDex,10; bonus bLongAtkRate,10;
+  - Combos:
+      - Combo:
+          - New_Black_Valkyrie_Helm_IV
+          - Wings_Dragon_Black
+    Script: |
+      bonus bDex,10; bonus bLongAtkRate,15;

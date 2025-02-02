@@ -1,0 +1,141 @@
+mainhall,114,267,3	script	Box Trader	869,{
+
+	set $@npcname_mpq$, "^4000C0[Benjamin]^000000";
+	mes $@npcname_mpq$;
+	mes "Psst...";
+	mes "Did you know that I can trade boxes?";
+	next;
+	menu "Yggdrasil Berry",L_Berry,"Yggdrasil Seed",L_Seed,"Poison Bottle",L_Poison,"Speed Potion",L_Speed;
+
+L_Berry:
+	mes $@npcname_mpq$;
+	mes "Select an option:";
+	next;
+	switch(select("Yggdrasil Berry Box (20):Yggdrasil Berry Box (50)")){
+		case 1:
+			mes $@npcname_mpq$;
+			mes "How many boxes do you want?";
+			input @berry;
+			if(@berry == 0) goto zeroinput;
+			if(countitem(607) < (20*@berry)) goto LNotEnough;
+			delitem 607,(20*@berry);
+			getitem 30090,(1*@berry);
+			mes "...";
+			mes "Thank you... Smooth service!";
+			close;
+		case 2:
+			mes $@npcname_mpq$;
+			mes "How many boxes do you want?";
+			input @berry;
+			if(@berry == 0) goto zeroinput;
+			if(countitem(607) < (50*@berry)) goto LNotEnough;
+			delitem 607,(50*@berry);
+			getitem 30091,(1*@berry);
+			mes "...";
+			mes "Thank you... Smooth service!";
+			close;
+	}
+
+L_Seed:
+	mes $@npcname_mpq$;
+	mes "Select an option:";
+	next;
+	switch(select("Yggdrasil Seed Box (20):Yggdrasil Seed Box (50)")){
+		case 1:
+			mes $@npcname_mpq$;
+			mes "How many boxes do you want?";
+			input @seed;
+			if(@seed == 0) goto zeroinput;
+			if(countitem(608) < (20*@seed)) goto LNotEnough;
+			delitem 608,(20*@seed);
+			getitem 30092,(1*@seed);
+			mes "...";
+			mes "Thank you... Smooth service!";
+			close;
+		case 2:
+			mes $@npcname_mpq$;
+			mes "How many boxes do you want?";
+			input @seed;
+			if(@seed == 0) goto zeroinput;
+			if(countitem(608) < (50*@seed)) goto LNotEnough;
+			delitem 608,(50*@seed);
+			getitem 30093,(1*@seed);
+			mes "...";
+			mes "Thank you... Smooth service!";
+			close;
+	}
+
+L_Poison:
+	mes $@npcname_mpq$;
+	mes "Select an option:";
+	next;
+	switch(select("Poison Bottle Box (20):Poison Bottle Box (50)")){
+		case 1:
+			mes $@npcname_mpq$;
+			mes "How many boxes do you want?";
+			input @poison;
+			if(@poison == 0) goto zeroinput;
+			if(countitem(678) < (20*@poison)) goto LNotEnough;
+			delitem 678,(20*@poison);
+			getitem 30100,(1*@poison);
+			mes "...";
+			mes "Thank you... Smooth service!";
+			close;
+		case 2:
+			mes $@npcname_mpq$;
+			mes "How many boxes do you want?";
+			input @poison;
+			if(@poison == 0) goto zeroinput;
+			if(countitem(678) < (50*@poison)) goto LNotEnough;
+			delitem 678,(50*@poison);
+			getitem 30101,(1*@poison);
+			mes "...";
+			mes "Thank you... Smooth service!";
+			close;
+	}
+	
+L_Speed:
+	mes $@npcname_mpq$;
+	mes "Select an option:";
+	next;
+	switch(select("Speed Potion Box (20):Speed Potion Box (50)")){
+		case 1:
+			mes $@npcname_mpq$;
+			mes "How many boxes do you want?";
+			input @speed;
+			if(@speed == 0) goto zeroinput;
+			if(countitem(12016) < (20*@speed)) goto LNotEnough;
+			delitem 12016,(20*@speed);
+			getitem 30102,(1*@speed);
+			mes "...";
+			mes "Thank you... Smooth service!";
+			close;
+		case 2:
+			mes $@npcname_mpq$;
+			mes "How many boxes do you want?";
+			input @speed;
+			if(@speed == 0) goto zeroinput;
+			if(countitem(12016) < (50*@speed)) goto LNotEnough;
+			delitem 12016,(50*@speed);
+			getitem 30103,(1*@speed);
+			mes "...";
+			mes "Thank you... Smooth service!";
+			close;
+	}
+
+LNotEnough:
+	mes "...";
+	mes "You dont have the required items?";
+	mes "Come back when you have it. Now gtfo!";
+	close;
+
+zeroinput:
+	mes "...";
+	mes "Do you want to trade or not?";
+	close;
+	
+Lnotenuff:
+	mes "...";
+	mes "Wtf, come back when you got the goods!";
+	close;
+}

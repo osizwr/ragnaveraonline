@@ -1,0 +1,240 @@
+verabay,170,202,6	script	Kapha	1406,{
+	set @NPC$,"[ Kapha ]";
+	
+	mes @NPC$;
+	mes "Hello, stranger!";
+	mes "";
+	mes "I'm the best fisherman in our village.";
+	mes "Would you like me to teach you?";
+	next;
+Menufish:
+	switch(select("Rent Fishing Gears:Fishing Shop:^0000ffAvail Premium Fishing^000000:^008000Information^000000")){
+		case 1:
+			mes @NPC$;
+			mes "Select what variant you want to avail?";
+			mes " -  ^008000One-Day Non Premium Fishing^000000";
+			mes " -  ^ff0000100,000,000 Zeny^000000";
+			mes "";
+			mes " -  ^008000Seven-Days Non Premium Fishing^000000";
+			mes " -  ^ff0000500,000,000 Zeny^000000";
+			next;
+			switch(select("One-Day Fishing:Seven-Days Fishing")){
+				case 1:
+					if (Zeny < 100000000){
+						mes @NPC$;
+						mes "You don't have enough zeny.";
+					}
+					mes @NPC$;
+					mes "Happy Fishing!";
+					set Zeny, Zeny - 100000000;
+					rentitem 30008, 1 * 86400;
+					rentitem 30009, 1 * 86400;
+					end;
+				case 2:
+					if (Zeny < 500000000){
+						mes @NPC$;
+						mes "You don't have enough zeny.";
+					}
+					mes @NPC$;
+					mes "Happy Fishing!";
+					set Zeny, Zeny - 500000000;
+					rentitem 30008, 7 * 86400;
+					rentitem 30009, 7 * 86400;
+					end;
+			}
+		case 2:
+			callfunc "qshop",1;
+		case 3:
+			mes @NPC$;
+			mes "Hmmm, Premium Fishing...";
+			next;
+			switch(select("One-Day Premium:Seven-Days Premium")){
+				case 1:
+					mes @NPC$+" ^0000ffOne-Day Premium^000000";
+					mes "I need you to gather this items:";
+					mes " -  ^008000100,000,000 Zeny^000000";
+					mes " -  ^008000500x Fish with Blue Back^000000";
+					mes " -  ^008000100x Platinum Bullion^000000";
+					mes " -  ^00800050x Gold Bullion^000000";
+					mes " -  ^00800025x Silver Bullion^000000";
+					next;
+					mes @NPC$;
+					mes "Do you have what I need?";
+					next;
+					if (countitem(6096) < 500 || countitem(7230) < 100 || countitem(7228) < 50 || countitem(7229) < 25 || Zeny < 100000000){
+						mes @NPC$;
+						mes "Sorry but the requirements that I need is not enough.";
+						mes "Go back when you meet the requirements, Thanks.";
+						end;
+					}
+					mes @NPC$;
+					mes "Great! Here is your Premium Fishing Gears!";
+					mes "Enjoy!";
+					rentitem 30015, 1 * 86400;
+					delitem 6096,500;
+					delitem 7230,100;
+					delitem 7228,50;
+					delitem 7229,25;
+					close;
+					end;
+				case 2:
+					mes @NPC$+" ^0000ffSeven-Days Premium^000000";
+					mes "I need you to gather this items:";
+					mes " -  ^008000500,000,000 Zeny^000000";
+					mes " -  ^0080001000x Fish with Blue Back^000000";
+					mes " -  ^008000500x Platinum Bullion^000000";
+					mes " -  ^008000300x Gold Bullion^000000";
+					mes " -  ^008000300x Silver Bullion^000000";
+					next;
+					mes @NPC$;
+					mes "Do you have what I need?";
+					next;
+					if (countitem(6096) < 1000 || countitem(7230) < 500 || countitem(7228) < 300 || countitem(7229) < 300 || Zeny < 500000000){
+						mes @NPC$;
+						mes "Sorry but the requirements that I need is not enough.";
+						mes "Go back when you meet the requirements, Thanks.";
+						end;
+					}
+					mes @NPC$;
+					mes "Great! Here is your Premium Fishing Gears!";
+					mes "Enjoy!";
+					rentitem 30015, 7 * 86400;
+					delitem 6096,1000;
+					delitem 7230,500;
+					delitem 7228,300;
+					delitem 7229,300;
+					close;
+					end;
+			}
+		case 4:
+			mes @NPC$;
+			mes "To be able to fish, you must rent fishing equipment such as ^0000fffishing rod^000000 and ^0000fffishing license^000000.";
+			next;
+			mes @NPC$;
+			mes "To reduce your casting time, you must obtain fishing gear. To get it, you must trade the '^0000ffFish with Blue Back^000000' into fishing gear.";
+			next;
+			mes @NPC$;
+			mes " -  ^008000Fisherman's Boots^000000";
+			mes "Effect: Reduce casting time by 1 second.";
+			next;
+			mes @NPC$;
+			mes " -  ^008000Fisherman's Muffler^000000";
+			mes "Effect: Reduce casting time by 1 second.";
+			next;
+			mes @NPC$;
+			mes " -  ^008000Fisherman's Hat^000000 + ^008000Fisherman's Jacket^000000";
+			mes "Effect: Reduce casting time by 1 second.";
+			next;
+			goto Menufish;
+	}
+
+OnInit:
+	while (1) {
+		showscript "Fishing Shop", getnpcid(0);
+		sleep 1000;
+	}
+end;
+
+}
+
+verabay,167,194,0	script	Bangus	10065,{
+
+// List of Junk/Other
+setarray .@Catch[0],579,908,909,963,956,6049,918,960,910,938,624,30010;
+
+// 3%
+setarray .@Rare[0],7228,7229,7230,12050,12045,12065,12060,12055,12070; // pwd mdami dito random to
+
+// 5%
+setarray .@Rare1[0],6096,7228,7229,7230; // Fish With Blue Back, Gold Bullion, Silver Bullion, Platinum Bullion
+
+// 10%
+setarray .@Rare2[0],6096,579; // Fish With Blue Back
+
+//Fishing rod
+set .@Rod,30008; // Ito ung Rod
+
+//Fishing Permit
+set .@Lure,30009; // permit
+
+// Bulate
+set .@Bulate,30010; // lure
+
+//Auto-Fish
+set .@Auto,1;
+//Auto-Fish on Fail
+set .@AutoFail,1;
+Fish:
+	if(countitem(.@Bulate) <1 ) {
+	dispbottom "[ Fishing ] You need Non Premium Fishing Lure.";
+	end;
+	}
+	if (isequipped(.@Rod)) && (isequipped(.@Lure)){
+		specialeffect EF_BUBBLE,"Fishing Hole";
+		dispbottom "[Fishing] Casting...";
+		set .@fcast,5;
+			if (isequipped(30013)) { //Fisher's Muffler - wag gamitin
+				set .@fcast,.@fcast - 1;
+			}
+			if (isequipped(30014)) { //Fisher's Boots -- wag gamitin
+				set .@fcast,.@fcast - 1;
+			}
+			if (isequipped(30012)) && (isequipped(30011)) { //jacket fisht hat
+				set .@fcast,.@fcast - 1;
+			}
+		delitem .@Bulate,1;
+		progressbar "ffffff",.@fcast;
+		if (rand(1,10) == 2){
+		getitem 6096,1; //Fish with Blue Back
+		specialeffect2 EF_TEMP_OK;
+		mapannounce strcharinfo(3),"[ Fishing ] "+strcharinfo(0)+" has caught a Fish with Blue Back!",bc_map,"0xff77ff";
+		if(.@Auto==1){
+		goto Fish;}else{
+		end;}
+		}
+			if (rand(1,5) == 1) ||(rand(1,5) == 2) || (rand(1,5) == 3) || (rand(1,5) == 4) || (rand(1,5) == 5){
+			setarray .@Catch[0],579,908,909,963,956,6049,918,960,910,938,624;// List of Junk/Other
+			set .@CatchRand,.@Catch[rand(getarraysize(.@Catch))];
+			getitem .@CatchRand,1;
+			}
+			else {
+			dispbottom "[Fishing] Nothing was caught...";
+			if(.@AutoFail == 1){
+			goto Fish;} else{
+			end;}
+			}
+		if (rand(1,20) == 3){
+		set .@RareCatch, .@Rare[rand(getarraysize(.@Rare))];
+		getitem .@RareCatch,1; //Reward
+		mapannounce strcharinfo(3),"[ Fishing ] "+strcharinfo(0)+" has caught a "+getitemname(.@RareCatch)+"! for 3%",bc_map,"0x33CC00";
+		}
+		if (rand(1,15) == 4){
+		set .@Rare1Catch, .@Rare1[rand(getarraysize(.@Rare1))];
+		getitem .@Rare1Catch,1; //Reward
+		mapannounce strcharinfo(3),"[ Fishing ] "+strcharinfo(0)+" has caught a "+getitemname(.@Rare1Catch)+"! for 5%",bc_map,"0x33CC00";
+		}
+		if (rand(1,10) == 5){
+		set .@Rare2Catch, .@Rare2[rand(getarraysize(.@Rare2))];
+		getitem .@Rare2Catch,1; //Reward
+		mapannounce strcharinfo(3),"[ Fishing ] "+strcharinfo(0)+" has caught a "+getitemname(.@Rare2Catch)+"! for 10%",bc_map,"0x33CC00";
+		}
+		if(.@Auto == 1){
+		goto Fish;} else{
+		end;}
+		}
+	else {
+	dispbottom "[ Fishing ] You need to equip both Non Premium Fishing Rod and Fishing License.";
+	end;
+	}
+}
+
+//phtownall,83,14,0	duplicate(Fishing Hole)	Fishing Hole#5	10065
+//phtownall,79,14,0	duplicate(Fishing Hole)	Fishing Hole#6	10065
+//phtownall,75,14,0	duplicate(Fishing Hole)	Fishing Hole#7	10065
+//phtownall,71,14,0	duplicate(Fishing Hole)	Fishing Hole#8	10065
+//phtownall,67,14,0	duplicate(Fishing Hole)	Fishing Hole#9	10065
+
+verabay,169,194,0	duplicate(Bangus)	Kandule#1s1	10065
+verabay,171,194,0	duplicate(Bangus)	Tilapia#1s2	10065
+verabay,173,194,0	duplicate(Bangus)	Bisugo#1s3	10065
+verabay,175,194,0	duplicate(Bangus)	Tulingan#1s4	10065

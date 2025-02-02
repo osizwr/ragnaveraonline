@@ -1,0 +1,240 @@
+-	pointshop	monsArenaPermaH	1,#ARENAPOINTS,35085:18000,35083:20000,35086:25000
+-	pointshop	monsArenaRentH	1,#ARENAPOINTS,501:1
+-	pointshop	monsArenaMisc	1,#ARENAPOINTS,30121:250
+-	pointshop	monsArenaUsable	1,#ARENAPOINTS,30120:10,30124:15,30125:20
+
+
+veratemple,131,122,3	script	Klaus	734,{
+	set @NPC$,"[ Klaus ]";
+	
+	mes @NPC$;
+	mes "How may I help you?";
+	next;
+Menumons:
+	switch(select("Enter Monster Arena:Monster Arena Shop:^008000Information^000000")){
+		case 1:
+			if(rentalcountitem(30003) == 1){
+				goto Menuside;
+			}
+			mes @NPC$;
+			mes "On what whay of access are you going to use?";
+			next;
+			switch(select("One-Time:One-Day:Seven-Days")){
+				case 1:
+					goto Onetime;
+				case 2:
+					goto Oneday;
+				case 3:
+					goto Sevendays;
+			}
+		case 2:
+			mes @NPC$;
+			mes "Select what shop you are going to open.";
+			switch(select("Headgears:Usables:Miscellaneous")){
+				case 1:
+					switch(select("Permanent Headgears:Rental Headgears")){
+						case 1:
+							callshop "monsArenaPermaH", 0;
+							end;
+						case 2:
+							callshop "monsArenaRentH", 0;
+							end;
+					}
+				case 2:
+					callshop "monsArenaUsable", 0;
+					end;
+				case 3:
+					callshop "monsArenaMisc", 0;
+					end;
+			}
+		case 3:
+			mes@NPC$;
+			mes "There are different monsters inside the Arena. By killing them, it will give you Arena Points that can be used to purchase ^008000equipment^000000, ^008000usables^000000, & ^008000miscellaneous^000000 items.";
+			next;
+			mes@NPC$;
+			mes "Also, there are three methods on how you can access the Arena.";
+			mes "";
+			mes "";
+			mes " -->  ^008000One-Time Access^000000";
+			mes " -->  ^0000ffOne-Day Access^000000";
+			mes " -->  ^964B00Seven-Days Access^000000";
+			next;
+			mes@NPC$;
+			mes "The ^008000One-Time Access^000000";
+			mes "costs ^FF000030,000,000^000000 Zeny.";
+			mes "";
+			mes "";
+			mes "When you die on this one-time access, you need to pay again in order to enter the Arena again.";
+			next;
+			mes@NPC$;
+			mes "The ^0000ffOne-Day Access^000000";
+			mes "costs ^FF0000150,000,000^000000 Zeny.";
+			mes "";
+			mes "";
+			mes "You will have an access for 24-hours upon your registration.";
+			next;
+			mes@NPC$;
+			mes "The ^964B00Seven-Day Access^000000";
+			mes "costs ^FF0000700,000,000^000000 Zeny.";
+			mes "";
+			mes "";
+			mes "You will have an access for seven-days upon your registration.";
+			next;
+			goto Menumons;
+	}
+Onetime:
+	mes @NPC$;
+	mes "You need to pay ^ff000030,000,000^000000 Zeny to enter the arena.";
+	mes "";
+	mes "";
+	mes "Are you going to proceed?";
+	next;
+	switch(select("Yes:No")){
+		case 1:
+			if(Zeny < 30000000){
+				mes @NPC$;
+				mes "You don't have enough zeny to enter the Arena.";
+				end;
+			}
+			mes @NPC$;
+			mes "In which direction are you going to in?";
+			next;
+			switch(select("North Side of Arena:South Side of Arena:West Side of Arena:East Side of Arena")){
+				case 1:
+					mes @NPC$;
+					mes "Okay here we go!";
+					next;
+					set Zeny, Zeny - 30000000;
+					warp "vis_h01",112,128;
+					end;
+				case 2:
+					mes @NPC$;
+					mes "Okay here we go!";
+					next;
+					set Zeny, Zeny - 30000000;
+					warp "vis_h01",87,55;
+					end;
+				case 3:
+					mes @NPC$;
+					mes "Okay here we go!";
+					next;
+					set Zeny, Zeny - 30000000;
+					warp "vis_h01",52,108;
+					end;
+				case 4:
+					mes @NPC$;
+					mes "Okay here we go!";
+					next;
+					set Zeny, Zeny - 30000000;
+					warp "vis_h01",147,76;
+					end;
+			}
+		case 2:
+			goto Noproceed;
+	}
+end;
+
+Oneday:
+	mes @NPC$;
+	mes "You need to pay ^ff0000150,000,000^000000 Zeny to enter the arena.";
+	mes "";
+	mes "";
+	mes "Are you going to proceed?";
+	next;
+	switch(select("Yes:No")){
+		case 1:
+			if(Zeny < 150000000){
+				mes @NPC$;
+				mes "You don't have enough zeny to enter the Arena.";
+				end;
+			}
+			set Zeny, Zeny - 150000000;
+			rentitem 30003, 1 * 86400;
+			goto Menuside;
+		case 2:
+			goto Noproceed;
+	}
+end;
+
+Sevendays:
+	mes @NPC$;
+	mes "You need to pay ^ff0000700,000,000^000000 Zeny to enter the arena.";
+	mes "";
+	mes "";
+	mes "Are you going to proceed?";
+	next;
+	switch(select("Yes:No")){
+		case 1:
+			if(Zeny < 700000000){
+				mes @NPC$;
+				mes "You don't have enough zeny to enter the Arena.";
+				end;
+			}
+			set Zeny, Zeny - 700000000;
+			rentitem 30003, 7 * 86400;
+			goto Menuside;
+		case 2:
+			goto Noproceed;
+	}
+end;
+
+Menuside:
+	mes @NPC$;
+	mes "In which direction are you going to in?";
+	next;
+	switch(select("North Side of Arena:South Side of Arena:West Side of Arena:East Side of Arena")){
+		case 1:
+			mes @NPC$;
+			mes "Okay here we go!";
+			next;
+			warp "vis_h01",112,128;
+			end;
+		case 2:
+			mes @NPC$;
+			mes "Okay here we go!";
+			next;
+			warp "vis_h01",87,55;
+			end;
+		case 3:
+			mes @NPC$;
+			mes "Okay here we go!";
+			next;
+			warp "vis_h01",52,108;
+			end;
+		case 4:
+			mes @NPC$;
+			mes "Okay here we go!";
+			next;
+			warp "vis_h01",147,76;
+			end;
+	}
+
+Noproceed:
+	mes @NPC$;
+	mes "When you are interested, just approach me anytime.";
+end;
+	
+OnInit:
+	while (1) {
+		showscript "Monster Arena ["+.@count+"]", getnpcid(0);
+		.@count = getmapusers("goldroom");
+		if (.@count != .count) {
+			.count = .@count;
+			showscript "Monster Arena ["+.@count+"]", getnpcid(0);
+		}
+		sleep 1000;
+	}
+end;
+}
+
+goldroom	mapflag	nobranch
+goldroom	mapflag	novending
+goldroom	mapflag	nowarp
+goldroom	mapflag	nowarpto
+goldroom	mapflag	noicewall
+goldroom	mapflag	nomemo
+goldroom	mapflag	nosave
+goldroom	mapflag	noreturn
+goldroom	mapflag	nodrop
+goldroom	mapflag	nomobloot
+goldroom	mapflag	nomvploot

@@ -1,0 +1,2 @@
+D:/#0 Yet Another Ragnarok Dream/ragnaVeraTrunk/src/map/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+D:/#0 Yet Another Ragnarok Dream/ragnaVeraTrunk/src/map/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir

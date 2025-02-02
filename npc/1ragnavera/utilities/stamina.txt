@@ -1,0 +1,36 @@
+veratemple,30,97,0	script	Statue of Virtue	111,{
+
+if (#STAMINAPOINT > .min_stamina) {
+	dispbottom "[ Stamina ] Your stamina is full.";
+	end;
+}
+//Auto
+set .@Auto,1;
+dispbottom "[ Stamina ] Stamina is now casting.";
+StaminaCD:
+	set .@fcast,1;
+	progressbar "ffffff",.@fcast;
+	specialeffect2 EF_TEMP_OK;
+	soundeffectall "success.wav",0,strcharinfo(3);
+	set #STAMINAPOINT,#STAMINAPOINT+1;
+	dispbottom "[ Stamina ] You gained 1 stamina. Total: ["+#STAMINAPOINT+"/"+.max_stamina+"]";
+	if (#STAMINAPOINT > .min_stamina) {
+	dispbottom "[ Stamina ] Your stamina is full.";
+	end;
+	}
+	if(.@Auto==1){
+	goto StaminaCD;}else{
+	end;}
+
+OnInit:
+bindatcmd "stamina",strnpcinfo(3)+"::OnStatusCheck";    
+.max_stamina = 100; // max stamina na pwdng i gain ng player,, note ko lang laging my 1 pagitan sila ni ".min_stamina" example inedit mo to at ginawa mong ".max_stamina = 100;" dapat si ".min_stamina = 99;" gawin mo syang ganyan
+.min_stamina = 99; // ito ang mag ccheck kung full n stamina ni player,, note ko lang laging my 1 pagitan sila ni ".max_stamina" example inedit mo to at ginawa mong ".max_stamina = 100;" dapat si ".min_stamina = 99;" gawin mo syang ganyan
+end;
+
+OnStatusCheck:
+dispbottom "[ Stamina ] Your total stamina is ["+#STAMINAPOINT+"/"+.max_stamina+"]";   
+end;
+}
+
+veratemple,210,97,0	duplicate(Statue of Virtue)	Statue of Virtue#1s1	111

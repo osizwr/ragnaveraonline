@@ -1,0 +1,23 @@
+veratemple,108,122,5	script	Baryo Boy	577,{
+	mes "[ Baryo Boy ]";
+	mes "Do you want to go to catch some fish?";
+	if(select("Yes,please","No")==2) {
+		mes "Ok, take care then";
+		close;
+	}
+	warp "verabay",157,196;
+	end;
+OnInit:
+
+while (1) {
+		showscript "Fishing Bay ["+.@count+"]", getnpcid(0);
+		.@count = getmapusers("verabay");
+		if (.@count != .count) {
+			.count = .@count;
+			showscript "Fishing Bay ["+.@count+"]", getnpcid(0);
+		}
+		sleep 1000;
+	}
+end;
+
+}

@@ -1,0 +1,32 @@
+mainhall,100,299,3	script	Potion Brewing	542,{
+	
+	mes "[Agathodaemon]";
+	mes "Ah, a fresh face in search of wisdom; or perhaps something a bit more volatile? Welcome to my humble alchemy station!";
+	next;
+	mes "[Agathodaemon]";
+	mes "Feeling adventurous? Try the Draught of Dreams... or maybe you'd prefer a simple Healing Elixir?";
+	next;
+	switch(select("Restorative Elixir:Cancel")){
+		Case 1:
+			callfunc "hshop",13;
+			end;
+		Case 2:
+			mes "[Agathodaemon]";
+			mes "Farewell, adventurer. May your next sip be as sweet as victory!";
+			end;
+	}
+}
+
+mainhall,95,299,5	script	Potion Brewing	558,{
+	
+	mes "[Alexandria]";
+	mes "You've got the spark of curiosity in your eyes! Come closer, and let's brew some magic.";
+	close;
+}
+
+mainhall,77,292,5	script	Chef Purrington	548,{
+	
+	mes "[Purrington]";
+	mes "Meow there! Are you ready to taste something so delicious it'll make you purr?";
+	close;
+}

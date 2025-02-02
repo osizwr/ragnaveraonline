@@ -1,0 +1,243 @@
+veratemple,83,148,5	script	Credit Agent	833,{
+
+	set @NPC$,"[ Credit Agent ]";
+	
+	if(rentalcountitem(30002) == 1){
+		mes @NPC$;
+		mes "What can I do for you?";
+		mes "";
+		mes "";
+		if (#dailyCredit == -1){
+			mes "Daily Credit Exchange: ^0000ff0 Credit^000000";
+		}else{
+			mes "Daily Credit Exchange: ^0000ff"+#dailyCredit+" Credit^000000";
+		}
+		next;
+		switch(select("I want to change ^ff0000Zeny^000000 to ^008000Credit^000000.:I want to change ^008000Credit^000000 to ^ff0000Zeny^000000.:Nothing, just passing by.")){
+			case 1:
+				if (#dailyCredit == -1){
+					mes @NPC$;
+					mes "You reached your limit for today, comeback tomorrow.";
+					end;
+				}
+				function int__;
+				mes @NPC$;
+				mes "";
+				if( Zeny <  .value[.@coin] ){
+				mes "^FF0000[ERROR]^000000 You didnt have enough zeny.";
+				}else{
+					mes "You can get maximum of ^FF0000"+int__( #dailyCredit )+" x "+getitemname( .credit_id[.@coin] )+"^000000";
+					input .@amount,0,#dailyCredit;
+					if( .@amount > (Zeny / .value[.@coin]) ){
+						mes "I think the number of credit you input is exceeded to your Zeny";
+						end;
+					}
+						if( checkweight( .credit_id[.@coin],.@amount ) ){
+							.@total = ( .@amount * .value[.@coin] );
+							Zeny -= .@total;
+							getitem .credit_id[.@coin],.@amount;
+							message strcharinfo(0),"Exchanged "+int__( .@total )+" Zeny to "+int__( .@amount )+" "+getitemname( .credit_id[.@coin] )+"^000000";
+							set #dailyCredit, #dailyCredit - .@amount;
+							if (#dailyCredit <= 0){
+								set #dailyCredit, -1;
+								end;
+							}
+							end;
+						}else{
+							mes "^FF0000[ERROR]^000000 You cant take this much.";
+							end;
+						}
+				}
+				break;
+			case 2:
+				function int__;
+				mes @NPC$;
+				mes "";
+				if( !countitem( .credit_id[.@coin] ) ){
+					mes "^FF0000[ERROR]^000000 You didnt have any "+getitemname( .credit_id[.@coin] )+".";
+					end;
+				}else if( ( .max_zeny - Zeny ) < .value[.@coin] ){
+					mes "^FF0000[ERROR]^000000 You cant exchange "+.coin_name$+" as it will exceed the Zeny limit.";
+					end;
+				}else{
+					.@maximum = (( .max_zeny - Zeny ) / .value[.@coin] );
+					if( .@maximum > countitem( .credit_id[.@coin] ) ) .@maximum = countitem( .credit_id[.@coin] );
+					mes "You can exchange maximum of ^FF0000"+int__( .@maximum )+" x "+getitemname( .credit_id[.@coin] )+"^000000 to zeny";
+					input .@amount,0,.@maximum;
+					if( .@amount ){
+						.@total = ( .@amount * .value[.@coin] );
+						Zeny += .@total;
+						delitem .credit_id[.@coin],.@amount;
+						message strcharinfo(0),"Exchanged "+int__( .@amount )+" "+getitemname( .credit_id[.@coin] )+" to "+int__( .@total )+" Zeny^000000";
+						end;
+					}
+				}
+				break;
+			case 3:
+				mes @NPC$;
+				mes "You are more than welcome to come back.";
+				end;
+		}
+	}
+	if(#creditCardQuest == 1){
+		mes @NPC$;
+		mes "Welcome back. Do you have the items I asked for?";
+		next;
+		switch(select("Yes, here they are!:What do I need again?:I want to change ^008000Credit^000000 to ^ff0000Zeny^000000.:Not yet.")){
+			case 1:
+				if(countitem(30000) <1 || Zeny < 100000000){
+					mes @NPC$;
+					mes "I think you are missing something.";
+					end;
+				}
+				delitem 30000, 1;
+				set Zeny, Zeny - 100000000;
+				set #creditCardQuest, 2;
+				set #dailyCredit, 200;
+				mes @NPC$;
+				mes "Congratulations! You are now eligible to use our Zeny to Credit service!";
+				mes "";
+				mes "^ff0000NOTE: It only last for 15 days.^000000";
+				rentitem 30002, 15 * 86400;
+				end;
+			case 2:
+				mes @NPC$;
+				mes "Very well then.";
+				mes "All you need to do is bring me the following:";
+				mes "- 1 x Gold Plated Coin";
+				mes "- 100 x Item";
+				mes "- 100,000,000 Zeny";
+				next;
+				mes @NPC$;
+				mes "Here's a tip, look for Crazy Boris somewhere here at the temple.";
+				mes "";
+				mes "He could give you a Gold Plated Coin if you win on his Rock, Paper, Scissor Roulette game.";
+				next;
+				mes @NPC$;
+				mes "...";
+				mes "And I will be waiting.";
+				end;
+			case 3:
+				function int__;
+					mes @NPC$;
+					mes "Converting Credit to Zeny";
+					if( !countitem( .credit_id[.@coin] ) ){
+						mes "^FF0000[ERROR]^000000 You didnt have any "+getitemname( .credit_id[.@coin] )+".";
+						end;
+					}else if( ( .max_zeny - Zeny ) < .value[.@coin] ){
+						mes "^FF0000[ERROR]^000000 You cant exchange "+.coin_name$+" as it will exceed the Zeny limit.";
+						end;
+					}else{
+						.@maximum = (( .max_zeny - Zeny ) / .value[.@coin] );
+						if( .@maximum > countitem( .credit_id[.@coin] ) ) .@maximum = countitem( .credit_id[.@coin] );
+						mes "You can exchange maximum of ^FF0000"+int__( .@maximum )+" x "+getitemname( .credit_id[.@coin] )+"^000000 to zeny";
+						input .@amount,0,.@maximum;
+						if( .@amount ){
+							.@total = ( .@amount * .value[.@coin] );
+							Zeny += .@total;
+							delitem .credit_id[.@coin],.@amount;
+							message strcharinfo(0),"Exchanged "+int__( .@amount )+" "+getitemname( .credit_id[.@coin] )+" to "+int__( .@total )+" Zeny^000000";
+							end;
+						}
+					}
+					break;
+			case 4:
+				mes @NPC$;
+				mes "Okay, take your time.";
+				end;
+		}
+	}
+	mes @NPC$;
+	mes "Hello!";
+	mes "How's your adventure goin?";
+	mes "";
+	mes "Hmmm anyway, I can see that you do not carry a ^008000RagnarokName Credit Card^000000 yet.";
+	next;
+	mes @NPC$;
+	mes "Would you like to possess one?";
+	next;
+	switch(select("Yes!!!:A credit car... what?:I want to change ^008000Credit^000000 to ^ff0000Zeny^000000.:Not interested.")){
+		case 1:
+			set #creditCardQuest, 1;
+			mes @NPC$;
+			mes "Very well then.";
+			mes "All you need to do is bring me the following:";
+			mes " -  1 x Gold Plated Coin";
+			mes " -  100 x Item";
+			mes " -  100,000,000 Zeny";
+			next;
+			mes @NPC$;
+			mes "Here's a tip, look for Crazy Boris somewhere here at the temple.";
+			mes "";
+			mes "He could give you a Gold Plated Coin if you win on his Rock, Paper, Scissor Roulette game.";
+			next;
+			mes @NPC$;
+			mes "...";
+			mes "And I will be waiting.";
+			end;
+		case 2:
+			mes @NPC$;
+			mes "A ^008000RagnarokName Credit Card^000000 is required to use a service where you can exchange ^ff0000Zeny^000000 to ^008000Credit^000000.";
+			mes "";
+			mes "The value of credit is equivalent to ^00800010,000,000^000000 Zeny.";
+			next;
+			mes @NPC$;
+			mes "Once you possess one of this Credit Card, you can exchange your Zeny with any Credit Agent across in major cities.";
+			mes "";
+			mes "";
+			mes "^ff0000NOTE: The Credit Card is not required when exchanging your Credit to Zeny.^000000";
+			next;
+			mes @NPC$;
+			mes "The contract will last for ^ff000015 Days^000000.";
+			mes "After the time, you will have to renew your credit card.";
+			end;
+		case 3:
+			function int__;
+				mes @NPC$;
+				mes "";
+				if( !countitem( .credit_id[.@coin] ) ){
+					mes "^FF0000[ERROR]^000000 You didnt have any "+getitemname( .credit_id[.@coin] )+".";
+					end;
+				}else if( ( .max_zeny - Zeny ) < .value[.@coin] ){
+					mes "^FF0000[ERROR]^000000 You cant exchange "+.coin_name$+" as it will exceed the Zeny limit.";
+					end;
+				}else{
+					.@maximum = (( .max_zeny - Zeny ) / .value[.@coin] );
+					if( .@maximum > countitem( .credit_id[.@coin] ) ) .@maximum = countitem( .credit_id[.@coin] );
+					mes "You can exchange maximum of ^FF0000"+int__( .@maximum )+" x "+getitemname( .credit_id[.@coin] )+"^000000 to zeny";
+					input .@amount,0,.@maximum;
+					if( .@amount ){
+						.@total = ( .@amount * .value[.@coin] );
+						Zeny += .@total;
+						delitem .credit_id[.@coin],.@amount;
+						message strcharinfo(0),"Exchanged "+int__( .@amount )+" "+getitemname( .credit_id[.@coin] )+" to "+int__( .@total )+" Zeny^000000";
+						end;
+					}
+				}
+				break;
+		case 4:
+			mes @NPC$;
+			mes "You are more than welcome to comeback once you're ready to possess one.";
+			end;
+	}
+	
+OnInit:
+	.max_zeny = 2000000000;
+	.coin_name$ = "RagnarokName Credit";
+	.credit_id = 30001;
+	.value = 10000000;
+end;
+
+function	int__	{
+	set .@num, atoi(""+getarg(0));
+	if ( .@num == 0 || .@num >= 2147483647 ) return getarg(0);
+	set .@l, getstrlen(""+.@num);
+	for ( set .@i,0; .@i < .@l; set .@i, .@i + 1 ) {
+		set .@num$, .@num % pow(10,.@i+1) / pow(10,.@i) + .@num$;
+			if ( (.@i+1) % 3 == 0 && .@i+1 != .@l ) set .@num$, ","+ .@num$;
+	}
+	return .@num$;
+}
+	
+	
+}

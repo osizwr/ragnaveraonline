@@ -1,0 +1,285 @@
+-	shop	PickShop	-1,6010:50000,5031:1000000
+
+veratemple,108,118,5	script	Hermoining	848,{
+
+	set @NPC$,"[ Hermoining ]";
+	set $@miningMap$, "mining";
+	
+	mes @NPC$;
+	mes "Hiya! I'm the master of Mining, ^880000Hermoining^000000!";
+	next;
+MenuMining:
+	switch(select("Enter Mining Tunnel:Mining Shop:^0000ffFuse Rough Stone^000000:^008000Information^000000")){
+		case 1:
+			mes @NPC$;
+			mes "I need ^FF0000250,000 Zeny^000000 and ^FF0000Mining Permit^000000, then I will be able to bring you into the Mining Tunnel.";
+			next;
+			switch(select("Here, I got your zeny.:Let me think first.")){
+				case 1:
+				.passcode_length = 8;
+
+					// Generate a random passcode with the specified characters and length
+					setarray passcode$, "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+						"A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+						"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")"; // Add the special characters here
+
+					set .@correct_passcode$, "";
+
+					for (.@i = 0; .@i < .passcode_length; ++.@i) {
+						.@index = rand(getarraysize(passcode$) - 1);
+						.@correct_passcode$ += passcode$[.@index];
+					}
+					
+					mes @NPC$;
+					mes "Please enter the following phrase to enter: ^FF0000" + .@correct_passcode$;
+					next;	
+					input .@phrase$;
+
+					if (.@phrase$ != .@correct_passcode$) {
+						mes @NPC$;
+						mes "What you entered did not match the passphrase.";
+						mes "Please speak with me again to re-enter the phrase.";
+						close;
+					}
+					if (rentalcountitem(30003) == 1 || Zeny < 250000) {
+						mes @NPC$;
+						mes "You don't have enough ^FF0000zeny^000000 or dont have ^FF0000Mining Permit^000000.";
+						close;
+					} else {
+						mes @NPC$;
+						mes "Here we go!";
+						set Zeny, Zeny - 250000;
+						next;
+						warp $@miningMap$, 0, 0;
+						end;
+					}
+					break;
+				case 2:
+					mes @NPC$;
+					mes "Just let me know if you are ready.";
+					close;
+			}
+			break;
+		case 2:
+			callshop "PickShop";
+			close2;
+			end;
+		case 3:
+			function int__;
+			do{
+				callsub exchange_rate;
+				next;
+						.@coin = select( implode( .coin_name$,":" ) ) - 1;
+						if( !countitem( .coin_id[.@coin] ) ){
+							mes "[ Hermoining ]";
+							mes "^FF0000[ERROR]^000000 You didnt have any "+getitemname( .coin_id[.@coin] )+".";
+							next;
+						}else if( (countitem( .coin_id[.@coin] )) < 5 ){
+							mes "[ Hermoining ]";
+							mes "^FF0000[ERROR]^000000 You need at least 5 "+getitemname( .coin_id[.@coin] )+" to convert.";
+							next;
+						}else{
+							.@maximum = ((countitem( .coin_id[.@coin] )) / 5 );
+							if( .@maximum > countitem( .coin_id[.@coin] ) ) .@maximum = countitem( .coin_id[.@coin] );
+							mes "[ Hermoining ]";
+							mes "You can exchange maximum of ^FF0000"+int__( .@maximum )+" x "+getitemname( .coin_id[.@coin] )+"^000000 to ^ff0000"+getitemname( .pure_id[.@coin] )+"^000000";
+							input .@amount,0,.@maximum;
+							if( .@amount ){
+								.@required = ( .@amount * 5 );
+								.@total = .@amount;
+								delitem .coin_id[.@coin],.@required;
+								getitem .pure_id[.@coin],.@amount;
+								message strcharinfo(0), "Converted " + int__(.@required) + " "+getitemname( .coin_id[.@coin] )+" into " + int__(.@total) + " "+getitemname( .pure_id[.@coin] )+".";
+							}
+							next;
+						}
+			}while( .@menu != 3 );
+			mes "Thank you.";
+			close;		
+
+			exchange_rate:
+				mes "[ Hermoining ]";
+				mes "Exchange Rate: ";
+				for( .@i = 0; .@i < .coin_size; .@i++ )
+					mes "- ^0080005x "+.coin_name$[.@i]+"^000000 > ^008000"+int__( .value[.@i] )+"x "+.pure_stone$[.@i]+"^000000";
+				return;
+		case 4:
+			mes @NPC$;
+			mes "While inside the map, you'll be able to mine ores which can be used to upgrade equipments.";
+			next;
+			mes @NPC$;
+			mes "You can obtain the following:";
+			mes " -  ^008000Rough Oridecon^000000 50~70%";
+			mes " -  ^0000ffRough Elunium^000000 50~70%";
+			mes " -  ^964B00Rough Rhodonite^000000 40~60%";
+			mes " -  ^ff0000Rough Acerium^000000 10~30%";
+			next;
+			mes @NPC$;
+			mes "You can obtain the following:";
+			mes " -  ^008000Oridecon^000000 10~15%";
+			mes " -  ^0000ffElunium^000000 10~15%";
+			mes " -  ^964B00Rhodonite^000000 5~10%";
+			mes " -  ^ff0000Acerium^000000 1~5%";
+			next;
+			mes @NPC$;
+			mes "Ready to enter the tunnel?";
+			next;
+			goto MenuMining;
+	}
+OnInit:
+// server max zeny
+.max_zeny = 1000000000;
+// coin list + name + value
+setarray .coin_name$,"Rough Elunium","Rough Oridecon","Rough Rhodonite","Rough Acerium";
+setarray .pure_stone$,"Elunium","Oridecon","Rhodonite","Acerium";
+setarray .coin_id,757,756,30007,30005;
+setarray .pure_id,985,984,30006,30004;
+setarray .value,1,1,1,1;
+
+.coin_size = getarraysize( .coin_name$ );
+
+	while (1) {
+		showscript "Mining Tunnel ["+.@count+"]", getnpcid(0);
+		.@count = getmapusers("mining");
+		if (.@count != .count) {
+			.count = .@count;
+			showscript "Mining Tunnel ["+.@count+"]", getnpcid(0);
+		}
+		sleep 1000;
+	}
+end;
+
+
+// credits to annieruru
+function	int__	{
+	set .@num, atoi(""+getarg(0));
+	if ( .@num == 0 || .@num >= 2147483647 ) return getarg(0);
+	set .@l, getstrlen(""+.@num);
+	for ( set .@i,0; .@i < .@l; set .@i, .@i + 1 ) {
+		set .@num$, .@num % pow(10,.@i+1) / pow(10,.@i) + .@num$;
+			if ( (.@i+1) % 3 == 0 && .@i+1 != .@l ) set .@num$, ","+ .@num$;
+	}
+	return .@num$;
+}
+
+}
+
+mining,1,1,0	script	Rhodonite Crystal	1915,{
+	
+	callfunc "rhodonite_func";
+}
+
+mining,1,1,0	script	Elunium Crystal	1908,{
+	
+	callfunc "elunium_func";
+}
+
+mining,1,1,0	script	Acerium Crystal	1907,{
+	
+	callfunc "acerium_func";
+}
+
+mining,1,1,0	script	Oridecon Crystal	1914,{
+	
+	callfunc "oridecon_func";
+}
+
+
+
+mining,0,0,0,0	monster	Sapphire Guardian	1398,50,35000,240000
+mining,0,0,0,0	monster	Ruby Guardian	1397,50,35000,240000
+mining,0,0,0,0	monster	Emerald Guardian	1396,50,35000,240000
+mining,0,0,0,0	monster	Citrine Guardian	1951,50,35000,240000
+
+mining	mapflag	nobranch
+mining	mapflag	novending
+mining	mapflag	nowarp
+mining	mapflag	nowarpto
+mining	mapflag	noicewall
+mining	mapflag	nomemo
+mining	mapflag	nosave
+mining	mapflag	noreturn
+mining	mapflag	nodrop
+mining	mapflag	nomobloot
+mining	mapflag	nomvploot
+
+// Script to spawn, remove, and relocate NPCs
+-	script	NPCManager	-1,{
+
+	OnInit:
+		// Define the original NPC name and map
+		set .rhodonite$, "Rhodonite Crystal"; // Original NPC to duplicate
+		set .acerium$, "Acerium Crystal";
+		set .elunium$, "Elunium Crystal";
+		set .oridecon$, "Oridecon Crystal";
+		set .map$, "mining";           // Map for spawning duplicates
+
+		// Define duplicate NPC spawn settings
+		set .npc_count, 100;  // Number of duplicate NPCs
+		set .x_min, 1;    // Minimum X coordinate
+		set .x_max, 260;    // Maximum X coordinate
+		set .y_min, 1;    // Minimum Y coordinate
+		set .y_max, 260;    // Maximum Y coordinate
+
+		// Loop to create duplicate NPCs
+		for (set .@i, 0; .@i < .npc_count; set .@i, .@i + 1) {
+			// Generate random coordinates
+			set .@x, rand(.x_min, .x_max);
+			set .@y, rand(.y_min, .y_max);
+
+			// Generate a unique name for the duplicate NPC
+			
+
+			// Spawn duplicate NPC
+			duplicate(.rhodonite$, .map$, .@x, .@y, "Rhodonite Crystal");
+
+			// Save the NPC name and position for management
+			setarray .@npc_list$[.@i], .@dup_name$;
+			setarray .@npc_coords[.@i * 2], .@x, .@y;
+		}
+		for (set .@i, 0; .@i < .npc_count; set .@i, .@i + 1) {
+			// Generate random coordinates
+			set .@x, rand(.x_min, .x_max);
+			set .@y, rand(.y_min, .y_max);
+
+			// Generate a unique name for the duplicate NPC
+			
+
+			// Spawn duplicate NPC
+			duplicate(.acerium$, .map$, .@x, .@y, "Acerium Crystal");
+
+			// Save the NPC name and position for management
+			setarray .@npc_list$[.@i], .@dup_name$;
+			setarray .@npc_coords[.@i * 2], .@x, .@y;
+		}
+		for (set .@i, 0; .@i < .npc_count; set .@i, .@i + 1) {
+			// Generate random coordinates
+			set .@x, rand(.x_min, .x_max);
+			set .@y, rand(.y_min, .y_max);
+
+			// Generate a unique name for the duplicate NPC
+			
+
+			// Spawn duplicate NPC
+			duplicate(.elunium$, .map$, .@x, .@y, "Elunium Crystal");
+
+			// Save the NPC name and position for management
+			setarray .@npc_list$[.@i], .@dup_name$;
+			setarray .@npc_coords[.@i * 2], .@x, .@y;
+		}
+		for (set .@i, 0; .@i < .npc_count; set .@i, .@i + 1) {
+			// Generate random coordinates
+			set .@x, rand(.x_min, .x_max);
+			set .@y, rand(.y_min, .y_max);
+
+			// Generate a unique name for the duplicate NPC
+			
+
+			// Spawn duplicate NPC
+			duplicate(.oridecon$, .map$, .@x, .@y, "Oridecon Crystal");
+
+			// Save the NPC name and position for management
+			setarray .@npc_list$[.@i], .@dup_name$;
+			setarray .@npc_coords[.@i * 2], .@x, .@y;
+		}
+}

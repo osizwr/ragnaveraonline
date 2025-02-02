@@ -1,0 +1,261 @@
+veratemple,108,182,5	script	Vending Helper#1	757,{
+	for (.@i = 1; .@i <= .count; .@i++) {
+		getmapxy(.@map$, .@x, .@y, BL_NPC, "#vend_slot"+.@i);
+		if (!getareausers(.map$, .@x, .@y, .@x, .@y) && .@x > 1 && .@y > 1) {
+			set .@available, .@available + 1;
+			set .@menu$, .@menu$ + "Slot - "+.@i+":";
+		} else {
+			set .@menu$, .@menu$ + ":";
+		}
+	}
+
+	if (!.@available) {
+		mes "Dont have any available slot.";
+	} else if (!getskilllv("MC_VENDING")) {
+		mes "You dont have ^0055FFVending Skill^000000.";
+	} else {
+		mes "Available Slot : "+.@available;
+		mes "Please select a slot to vending.";
+		set .@i, select(.@menu$);
+		getmapxy(.@map$, .@x, .@y, BL_NPC, "#vend_slot"+.@i);
+		if (.@x == 1 || .@y == 1) {
+			mes "This NPC at invalid location...";
+		} else {
+			warp .@map$, .@x, .@y;
+			hideonnpc "#vend_slot"+.@i;
+		}
+	}
+	close;
+
+OnInit:
+	sleep 1000;
+	// Map for vending
+	.map$ = strnpcinfo(4);
+	setcell .map$, 0, 0, 300, 300, cell_novending, 1;
+
+	// x and y horizone ..
+	setarray .x_line, 48, 51, 54, 57, 60, 63, 66, 69, 72, 75, 78, 81, 84, 87, 90, 93, 96, 99, 191, 188, 185, 182, 179, 176, 173, 170, 167, 164, 161, 158, 155, 152, 149, 146, 143, 140;
+	setarray .y_line, 190, 187, 174, 177;
+	
+	
+
+	set .x_line_size, getarraysize(.x_line);
+	set .y_line_size, getarraysize(.y_line);
+	set .count, 1;
+	for (set .@x, 0; .@x < .x_line_size; set .@x, .@x + 1)
+		for (set .@y, 0; .@y < .y_line_size; set .@y, .@y + 1)
+			if (checkcell(.map$, .x_line[.@x], .y_line[.@y], cell_chkpass)) {
+				movenpc "#vend_slot"+.count, .x_line[.@x], .y_line[.@y];
+				setcell .map$, .x_line[.@x], .y_line[.@y], .x_line[.@x], .y_line[.@y], cell_novending, 0;
+				set .count, .count + 1;
+			}
+	npctalk "Vending Spot : "+.count;
+	donpcevent "::OnSetup";
+	end;
+}
+
+-	script	vend_slot	-1,{
+	getmapxy(.@map$, .@x, .@y, BL_NPC);
+	if (!getskilllv("MC_VENDING")) {
+		mes "[Vendor Helper]";
+		mes "You dont have ^0055FFVending Skill^000000.";
+	} else if (getareausers(.@map$, .@x, .@y, .@x, .@y)) {
+		mes "[Vendor Helper]";
+		mes "Someone already selected this spot.";
+	} else {
+		mes "[Vendor Helper]";
+		mes "Spot : ^777777Available^000000";
+		mes "^0055FF[ Vending Area Rules ]^000000";
+		mes "^FF0000 ~ Use proper Shop Name.^000000";
+		mes "^FF0000 ~ Never sell Junk/Gifts.^000000";
+		mes " ";
+		mes "^777777Player will failed to follow these will be punished.^000000";
+		if (select("Select this Spot", "Cancel") == 1) {
+			warp .@map$, .@x, .@y;
+			hideonnpc strnpcinfo(0);
+		}
+	}
+	close;
+
+OnSetup:
+	getmapxy(.@map$, .@x, .@y, BL_NPC);
+	set .@npcname$, strnpcinfo(0);
+	while(.@map$ != "") {
+		if (getareausers(.@map$, .@x, .@y, .@x, .@y)) {
+			hideonnpc .@npcname$;
+		} else {
+			hideoffnpc .@npcname$;
+			// specialeffect 313;
+		}
+		sleep 5000;
+	}
+	end;
+}
+
+// Add more if needed.
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot1	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot2	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot3	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot4	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot5	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot6	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot7	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot8	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot9	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot10	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot11	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot12	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot13	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot14	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot15	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot16	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot17	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot18	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot19	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot20	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot21	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot22	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot23	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot24	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot25	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot26	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot27	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot28	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot29	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot30	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot31	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot32	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot33	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot34	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot35	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot36	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot37	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot38	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot39	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot40	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot41	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot42	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot43	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot44	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot45	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot46	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot47	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot48	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot49	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot50	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot51	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot52	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot53	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot54	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot55	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot56	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot57	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot58	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot59	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot60	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot61	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot62	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot63	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot64	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot65	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot66	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot67	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot68	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot69	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot70	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot71	858
+veratemple, 1, 1, 5	duplicate(vend_slot)	#vend_slot72	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot73	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot74	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot75	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot76	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot77	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot78	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot79	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot80	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot81	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot82	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot83	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot84	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot85	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot86	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot87	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot88	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot89	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot90	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot91	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot92	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot93	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot94	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot95	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot96	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot97	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot98	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot99	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot100	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot101	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot102	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot103	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot104	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot105	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot106	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot107	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot108	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot109	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot110	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot111	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot112	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot113	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot114	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot115	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot116	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot117	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot118	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot119	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot120	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot121	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot122	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot123	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot124	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot125	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot126	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot127	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot128	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot129	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot130	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot131	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot132	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot133	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot134	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot135	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot136	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot137	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot138	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot139	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot140	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot141	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot142	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot143	858
+veratemple, 1, 1, 3	duplicate(vend_slot)	#vend_slot144	858
+
+prontera	mapflag	novending
+izlude	mapflag	novending
+moc_ruins	mapflag	novending
+geffen	mapflag	novending
+payon	mapflag	novending
+pay_arche	mapflag	novending
+alberta	mapflag	novending
+aldebaran	mapflag	novending
+yuno	mapflag	novending
+lighthalzen	mapflag	novending
+einbroch	mapflag	novending
+einbech	mapflag	novending
+comodo	mapflag	novending
+umbala	mapflag	novending
+amatsu	mapflag	novending
+gonryun	mapflag	novending
+ayothaya	mapflag	novending
+louyang	mapflag	novending
+hugel	mapflag	novending
+rachel	mapflag	novending
+veins	mapflag	novending

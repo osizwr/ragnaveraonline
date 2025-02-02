@@ -1,0 +1,503 @@
+-	script	login_player_cmd	-1,{
+	OnPCLoginEvent:
+	if(CanFishNow == 1 ) {
+	end; 
+	}
+	set CanFishNow,1;
+	end;
+}
+
+verabay,190,194,0	script	Swarm of Fish	10065,{
+	if(FishingAbuse == 1) 
+	end; 
+	if($@Toggle == 3 || $@Toggle == 4) {
+	if(CanFishNow == 0 ) 
+	end; 
+	} 
+	if($@FishingMode == 1) { callfunc "Automatic_Fishing"; } callfunc "Check_Requirements"; callfunc "Fishing_LoadingCasting"; 
+	callfunc "Fishing_Rates"; OnPCLoginEvent: if(FishingAbuse==1)set FishingAbuse,0; end; OnPCLogoutEvent: if(FishingAbuse==1) set FishingAbuse,0; end;
+}
+function	script	Fishing_Rates	{
+	     if($@FishingMode == 0) { set .@random,rand(1000);			// FISHING RATES SETUP										
+		// Fishing Successful Rate:	// 70% Rate
+		if(.@random>=1 && .@random<=250 || .@random>=351 && .@random<=600 || .@random>=801 && .@random<=1000 ) callfunc "Fishing_Successful";        
+		// Fail Bait Rate:			// 15% Rate
+		if(.@random>=251 && .@random<=300 || .@random>=601 && .@random<=700 ) callfunc "Fail_Bait";    
+		}	
+return;
+}
+
+verabay,192,194,0	duplicate(Swarm of Fish)	Swarm of Fish#5	10065
+verabay,194,194,0	duplicate(Swarm of Fish)	Swarm of Fish#6	10065
+verabay,196,194,0	duplicate(Swarm of Fish)	Swarm of Fish#7	10065
+verabay,198,194,0	duplicate(Swarm of Fish)	Swarm of Fish#8	10065
+verabay,200,194,0	duplicate(Swarm of Fish)	Swarm of Fish#9	10065
+verabay,202,194,0	duplicate(Swarm of Fish)	Swarm of Fish#10	10065
+verabay,204,194,0	duplicate(Swarm of Fish)	Swarm of Fish#11	10065
+
+function	script	Fishing_Dialogues	{						
+	set .@m,rand(1,10);
+	if(.@m==1) message strcharinfo(0), ".............";	// Change Fishing Dialogues here.
+	if(.@m==2) message strcharinfo(0), ".............";    // Change Fishing Dialogues here.
+	if(.@m==3) message strcharinfo(0), ".............";    // Change Fishing Dialogues here.
+	if(.@m==4) message strcharinfo(0), ".............";    // Change Fishing Dialogues here.
+	if(.@m==5) message strcharinfo(0), ".............";    // Change Fishing Dialogues here.
+	if(.@m==6) message strcharinfo(0), ".............";    // Change Fishing Dialogues here.
+	if(.@m==7) message strcharinfo(0), ".............";    // Change Fishing Dialogues here.
+	if(.@m==8) message strcharinfo(0), ".............";    // Change Fishing Dialogues here.
+	if(.@m==9) message strcharinfo(0), ".............";    // Change Fishing Dialogues here. 
+	if(.@m==10) message strcharinfo(0), "............";    // Change Fishing Dialogues here.
+return;
+}
+
+function	script	Fail_Bait	{ 
+	if ($@Cuttins == 1) { mes "^aa0000Grab the line now...^000000"; close2; sleep2 250; } 
+	set .@r,rand(1,5);           // FAIL BAIT DIALOGUES
+	if(.@r == 1) { emotion sob,1; message strcharinfo(0), " : ........"; }
+	if(.@r == 2) { emotion swt,1; message strcharinfo(0), " : ........"; }
+	if(.@r == 3) { emotion oops,1; message strcharinfo(0), " : ........"; }
+	if(.@r == 4) { emotion omg,1; message strcharinfo(0), " : ........"; }	
+	if(.@r == 5) { emotion desp,1; message strcharinfo(0), " : ......."; }	
+	callfunc "Fish_Fail"; callfunc "Fish_Timer"; end;							
+return; 
+}
+
+function	script	Fishing_Box_Menu	{
+	goto MainMenu;
+	MainMenu:
+	mes "[ ^00007f"+strcharinfo(0)+" : Fishing Box^000000 ]";
+	mes "You open the cold box.";
+	//cutin $@FishBoxCutin$,3;
+	next;
+	menu ("[ ^aa55ffFishing Box Manual^000000 ]",FishingBoxManual,"[ ^ff5500Open Fishing Box^000000 ]",OpenFishingBox,"[ ^ff0000Switch^000000 ]",FishingBoxStatus);
+	OpenFishingBox:
+		callfunc "Fishing_Box_Load"; close ;
+	FishingBoxManual:
+		mes "[ ^00007fFishing Box Manual^000000 ]";
+		mes "You start reading the manual...";
+		//cutin $@FBManualCutin$,3; 
+		next;
+		menu "[ ^005500Proceed^000000 ]",ReturnTo;
+		close;
+		ReturnNot:
+			emotion e_crwd,1;
+			dispbottom "Fishing Box is now Closed!";
+			cutin "",255;
+			close;
+		ReturnTo:
+			mes "[ ^00007fFishing Box Manual^000000 ]";
+			mes "Checking the manual...";
+			//cutin $@FBManualCutin1$,3;
+			next;
+			menu "[^aa55ff Fishing Box Switch^000000 ]",FishingBoxSwitch,"[ ^ff0000Fishing Box Status^000000 ]",FishingBox,"[ ^55ff7fMain Menu^000000 ]",MainMenu;
+			close;
+			FishingBoxSwitch:
+				mes "[ ^00007fFishing Box Manual^000000 ]";
+				mes "Fishing Box Switch";
+				mes "Switch Fishing Box to ^ff0000[ ON ]^000000"; 
+				mes "and ^878787[ OFF ]^000000.";
+				//cutin $@FBManualSwitch$,3;
+				next;
+				menu "[Return]",ReturnTo;
+				close;
+			FishingBox:
+				mes "[ ^00007fFishing Box Manual^000000 ]";
+				mes "Fishing Box Status";
+				mes "When set to ^aa557f[ ON ]^000000, fishing rewards will be automatically be putted in your ^00007f[ Fishing Box ]^000000."; 
+				cutin $@FBON$,3;
+				next;
+				mes "[ ^00007fFishing Box Manual^000000 ]";
+				mes "Fishing Box Status";
+				mes "When set to ^55557f[ OFF ]^000000 you will get the rewards directly.";
+				cutin $@FBOFF$,3;
+				next;
+				menu "[Return]",ReturnTo;
+				close;
+	FishingBoxStatus:
+		mes "[ ^00007f"+strcharinfo(0)+": Fishing Box Status^000000 ]";
+		mes "Fishing Box Status: [ ^ff5500"+FishingBoxOn+"^000000 ]";
+		mes "If Status = 1 is ^ff0000[ ON ]^000000";
+		mes "If Status = 2 is ^8a8a8a[ OFF ]^000000";
+		//cutin $@FBManualSwitch$,3;
+		next;
+		menu "[ ^ff0000Set to ON^000000 ]",NowOn,"[ ^999999Set to Off^000000 ]",NowOff,"[ ^aaffffMain Menu^000000 ]",MainMenu;
+		NowOn:
+			mes "[ ^00007f"+strcharinfo(0)+": Fishing Box Status^000000 ]";
+			set FishingBoxOn,1;
+			mes "Fishing Box is now ^ff0000[ ON ]^000000";
+			mes "Fishing Rewards is now stored in the box";
+			//cutin $@FBON$,3;
+			next;
+			menu "[Return]",FishingBoxStatus;
+			close;
+		NowOff:
+			mes "[ ^00007f"+strcharinfo(0)+": Fishing Box Status^000000 ]";
+			set FishingBoxOn,0;
+			mes "Fishing Box is now ^969696[ OFF ]^000000";
+			mes "Fishing Rewards is now directly put in your inventory";
+			//cutin $@FBOFF$,3;
+			next;
+			menu "[Return]",FishingBoxStatus;
+			close;
+return;
+}
+
+function	script	Fishing_Manual	{
+	goto MainMenu;
+	MainMenu:
+	mes "^00007f[ Fishing Manual ]^000000";
+	mes "You start reading the manual....";
+	next;
+	menu "[ ^00007fInstructions^000000 ]",FishingManual,"[ Fishing Skills ]",FishingSkills,"[ ^ff0000Fishing Statistics^000000 ]",FishingStatus,"[ ^55aaffCheck Requirements^000000 ]",FishRequirements;
+	FishRequirements:
+		mes "^00007f[ Fishing Manual ]^000000";	
+		mes "^ff0000Equipment Need^000000: ";		
+		for (.@i = 0; .@i < getarraysize($@FishingEquipsNeed); .@i++){ if (!isequipped($@FishingEquipsNeed[.@i])){ mes "'"+ getitemname($@FishingEquipsNeed[.@i])+"'"; .@FishingEquips++; } }												
+		mes "^0055ffRequirements^000000 :";
+		if($@FishingMode == 1) { if (countitem($@FishingLure) < 1 ) mes "You need to have "+getitemname($@FishingLure)+"."; }
+		if($@FishingMode == 0) { for (.@i = 0; .@i < getarraysize($@FishingMaterials); .@i++){ if (countitem($@FishingMaterials[.@i]) < $@AmountPerMaterials[.@i]){
+		mes ""+ $@AmountPerMaterials[.@i] +" : "+ getitemname($@FishingMaterials[.@i]) +""; .@MaterialRequirements++; } }
+		if (.@MaterialRequirements){  if (getarraysize($@FishingMaterials) > 1) .@diaglouge$ = "fishing requirements are missing."; else
+		.@diaglouge$ = "fishing requirement"; mes ""+.@MaterialRequirements +" : "+ getarraysize($@FishingMaterials) +" "+ .@diaglouge$ +".";	} }
+		//cutin $@FishManualCReq$,3; 
+		next;
+		menu "[ ^aaffffMain Menu^000000 ]",MainMenu;
+		close;
+	FishingSkills:
+		mes "^00007f[ Fishing Skills ]^000000";	
+		//for(.@i=0; 
+		mes "";
+		close;
+	FishingManual:
+		mes "[ ^005500Fishing Manual^000000 ]";
+		mes "Proceed to Instructions?";
+		//cutin $@FishManualC$,3; 
+		next;
+		menu "[ ^55aa00Proceed^000000 ]",ReturnTo,"[ ^55ffffMain Menu^000000 ]",MainMenu;
+		close;
+		ReturnTo:
+			mes "[ ^005500Fishing Manual^000000 ]";
+			mes "What do you want to learn?";  
+			//cutin $@FishBasic$,3;
+			next;
+			menu "[ ^00557fBasic of Fishing^000000 ]",BasicFishing,"[ ^aaff00Fishing Variables^000000 ]",FishingVar,"[ ^aa007fCheck Requirements^000000 ]",CheckReq,"[ ^aaffffMain Menu^000000 ]",MainMenu;
+			close;
+			CheckReq:
+				mes "[ ^005500Fishing Manual^000000 ]";
+				mes "It will check what item requirements you are missing to fish.";
+				next;
+				menu "[ ^55ff7fReturn^000000 ]",ReturnTo;
+				close;
+			BasicFishing:
+				mes "[ ^005500Fishing Manual^000000 ]";
+				mes "Basically you must have fishing the main fishing equips and materials in order to start fishing.";
+				//cutin $@FishBasic$,3;
+				next;
+				mes "[ ^005500Fishing Manual^000000 ]";
+				mes "Main fishing equips are ^ff0000"+getitemname($@FishingEquipsNeed[0])+"^000000 and ^ff0000"+getitemname($@FishingEquipsNeed[1])+"^000000.";
+				//cutin $@FishBasic$,3;
+				next;
+				mes "[ ^005500Fishing Manual^000000 ]";
+				mes "Main fishing materials are ^ff0000"+getitemname($@FishingMaterials[0])+"^000000, ^ff0000"+getitemname($@FishingMaterials[1])+"^000000 and ^ff0000"+getitemname($@FishingMaterials[2])+"^000000.";
+				//cutin $@FishBasic$,3;
+				next;
+				mes "[ ^005500Fishing Manual^000000 ]";
+				mes "Ok were done to Main Requirements now we move to the fishing itself.";
+				//cutin $@FishBasic$,3;
+				next;
+				mes "[ ^005500Fishing Manual^000000 ]";
+				mes "There are 50 Ranks in fishing, the higher the Rank the higher the probability that you can successfully catch a fish. Also the higher the rank, the chance to get Rare Fish is increased.";
+				//cutin $@FishBasic$,3;
+				next;
+				mes "[ ^005500Fishing Manual^000000 ]";
+				mes "Also different Ranks got individual Titles. Ok now lets move to Fishing Equipments.";
+				//cutin $@FishBasic$,3;
+				next;
+				mes "[ ^005500Fishing Manual^000000 ]";
+				mes "Fishing equipments will give you boost to certain variables like increasing additional exp per successful fishing, increase points and reducing the casting time of fishing.";
+				//cutin $@FishBasic$,3; 
+				next;
+				mes "[ ^005500Fishing Manual^000000 ]";
+				mes "End of the manual.";
+				//cutin $@FishBasic$,3;
+				next;
+				menu "[ ^55ff7fReturn^000000 ]",ReturnTo;
+				close;
+			FishingVar:
+				mes "[ ^005500Fishing Manual^000000 ]";
+				mes "[ ^00007fFishing Variables:^000000 ]";
+				mes "Choose what variable you want to know.";
+				//cutin $@FishVariables$,3;
+				next;
+				
+				if($@Toggle == 0) {	
+					menu "[ ^aa00ffExperience^000000 ]",FishingExp,"[ ^aaaaffRates^000000 ]",FishingRates,"[ ^00ff7fMain Menu^000000 ]",ReturnTo; }
+				if($@Toggle == 1 || $@Toggle == 2 || $@Toggle == 3 || $@Toggle == 4){
+					menu "[ ^aa00ffExperience^000000 ]",FishingExp,"[ ^ffaa00Points^000000 ]",FishingPoints,"[ ^aaaaffRates^000000 ]",FishingRates,"[ ^00ff7fMain Menu^000000 ]",ReturnTo; }
+				
+				close;
+				FishingRates:
+					next;
+					mes "[ ^005500Fishing Manual^000000 ]";
+					mes "[ ^00007fFishing Rates:^000000 ]";
+					mes "Fishing Rates will determine what will be the outcome of one fishing. Ranging from Item Chance Rates or Successful Fishing itself. Also there are specific Rates Bonuses per Rank-Up.";
+					//cutin $@FishVariables$,3;
+					next;
+					menu "[ ^55ff7fReturn^000000 ]",FishingVar;
+					close;
+				FishingExp:
+					next;
+					mes "[ ^005500Fishing Manual^000000 ]";
+					mes "[ ^00007fFishing Experience:^000000 ]";
+					mes "Fishing Experience will determine how far or close you are ataining new Rank in fishing. When you reach your Max Experience of your current Fishing Level, you will be promoted, and yet, your experience in that new rank will be set to Zero[0].";
+					next;
+					menu "[ ^55ff7fReturn^000000 ]",FishingVar;
+					close;
+				FishingPoints:	
+					next;
+					mes "[ ^005500Fishing Manual^000000 ]";
+					mes "[ ^00007fFishing Points:^000000 ]";
+					mes "Fishing Points are acquired when a successful fishing is done. When your Fishing Rank Level-up additional there are bonus points acquired. Also when you are using Fishing Equipments you will have specific bonuses from individual items.";
+					//cutin $@FishVariables$,3;
+					next;
+					mes "[ ^005500Fishing Manual^000000 ]";
+					mes "[ ^00007fFishing Points:^000000 ]";
+					mes "Fishing Points can be used in buying ^ff0000Special Fishing Items^000000. Find the Fishing Guru "+$@NPC_Fishing$+". Hes the one selling ^ff0000Special Fishing Items^000000.";
+					//cutin $@FishVariables$,3; 
+					next;
+					menu "[ ^55ff7fReturn^000000 ]",FishingVar;
+					close;
+	FishingStatus:
+		mes "[ ^00007f"+strcharinfo(0)+": Fishing Statistics^000000 ]";
+		mes "Checking Fishing Statistics...";
+		//cutin $@FishingStats$,3;
+		next;
+		menu ("[ ^ff0000Proceed^000000 ]",FishingStat,"[ ^55aa00Main Menu^000000 ]",MainMenu);
+		close;
+		FishingStat:
+			mes "[ ^00007f"+strcharinfo(0)+": Fishing Status^000000 ]";
+			mes "[ ^005500Labels^000000 ]";
+			mes "Experience = [ ^55aaffEXP^000000 ]";
+			mes "Rank Rate = ^ff5500[ RR ]^000000";
+			mes "Item Level Rate = ^5500ff[ LIR ]^000000";
+			mes "Cast Time = ^00557f[ CT ]^000000";
+			mes "Base Rate = ^aa55ff[ BR ]^000000";
+			mes "Probability = ^00aa7f[ PR ]^000000";
+			//cutin $@FishingStats$,3;
+			if($@Toggle == 0 ){
+			menu("[ ^005500Fishing Level^000000 ]",FishingLvl,"[ ^aa55ffEquip Bonuses^000000 ]",EquipmentBonus,"[ ^ff5500Reward Rate^000000 ]",RewardRates,"[ ^aaff00Main Menu^000000 ]",MainMenu);
+			}
+			if($@Toggle == 1 || $@Toggle == 2 || $@Toggle == 3 || $@Toggle == 4) mes "Points = ^aaaa00[ PT ]^000000";{
+			menu("[ ^005500Fishing Level^000000 ]",FishingLvl,"[ ^aa55ffEquip Bonuses^000000 ]",EquipmentBonus,"[ ^ff5500Reward Rate^000000 ]",RewardRates,"[ ^ffaa7fFishing Points^000000 ]",FishingPts,"[ ^aaff00Main Menu^000000 ]",MainMenu);
+			}
+			close;
+		FishingLvl:
+			next;
+			mes "[ ^00007f"+strcharinfo(0)+": Fishing Status^000000 ]";
+			mes "Rank: [ ^ffaa00" + FishingLevel + "^000000 ]";
+			mes "Title: [ ^ff0000" + $@FishingLevelName$[ FishingLevel ] + "^000000 ] ";
+			mes "EXP: [ ^ff55ff"+FishingNowExp+"^000000 / ^55007f"+$@FishingExpMax+"^000000 ]";
+			//cutin $@FishingStats$,3;
+			next;
+			menu "[ ^55aaffReturn^000000 ]",FishingStatus;
+			close;
+		EquipmentBonus:
+			next;
+			mes "[ ^00007f"+strcharinfo(0)+": Fishing Status^000000 ]";
+			mes "[ ^ff5500Fishing Equip Bonuses:^000000 ]";
+			
+			for(set .@i,0; .@i <= getarraysize($@FishingEquips); .@i++){ if(isequipped($@FishingEquips[.@i])) { if(.@i==8) break;
+					mes .@i+". [ ^005500"+getitemname($@FishingEquips[.@i])+"^000000 ] PT:(^ff0000"+$@FishingEquipsPts[.@i]+"^000000) EXP:(^ffaa00"+($@FishingEquipsExp[.@i])+"^000000)"; } }
+			for(set .@i,0; .@i <= getarraysize($@FishingEquips); .@i++){ if(!isequipped($@FishingEquips[.@i])){ if(.@i==8) break;
+					mes .@i+". [ ^aaaa7f"+getitemname($@FishingEquips[.@i])+"^000000 ] PT:(^aaaa7f0^000000) EXP:(^aaaa7f0^000000)"; } }
+			
+			//cutin $@FishingStats$,3;
+			next;
+			menu "[ ^55aaffReturn^000000 ]",FishingStatus;	
+			close;
+		RewardRates:
+			next;
+			mes "[ ^00007f"+strcharinfo(0)+": Fishing Status^000000 ]";
+			mes "[ ^ff0000Reward Rate Total^000000 ]";
+			mes "Formula: ^00557f[ BR + ER + RR = PR ]^000000";
+			
+			for (@i = 0; @i < getarraysize($@FishingEquips); @i++){ if(isequipped($@FishingEquips[@i])) {       			 
+			set $@EquipRates,$@LevelItemRate[FishingLevel]+$@FishingEquipsRate[@i]; 
+			set $@Probability,$@EquipRates+$@FishingItemRate;	} }
+			
+			mes "PR : [ ^ffaa00"+$@Probability+"^000000 / 200 ] BR: [ ^00007f"+$@FishingItemRate+"^000000 ]";
+			mes "RR: [ ^005500"+$@LevelItemRate[FishingLevel]+"^000000 ] ER: [ ^5500ff"+ $@EquipRates +"^000000 ]";
+			mes "LIR 1 : [ ^aa007f"+$@FishingItemRate+"^000000 ] LIR 2 : [ ^ff557f"+$@FishingItemSP2Rate+"^000000 ]"; 
+			mes "LIR 3 : [ ^55007f"+$@FishingItemSP3Rate +"^000000 ]";
+			//cutin $@FishingStats$,3;
+			next;
+			menu "[ ^55aaffReturn^000000 ]",FishingStatus;
+			close;
+		FishingPts:
+			next;
+			mes "[ ^00007f"+strcharinfo(0)+": Fishing Status^000000 ]";
+			mes "[ Fishing Points ]";
+			mes "Points: [ "+#FishingPoints+" ] ";
+			mes "Rank Bonus: [ "+$@FishingPoints[FishingLevel]+" ]";
+			//cutin $@FishingStats$,3;
+			next;
+			menu "[ ^55aaffReturn^000000 ]",FishingStatus;
+			close;
+return;
+}
+
+
+
+function	script	Fishing_LoadingCasting	{
+specialeffect EF_BUBBLE; specialeffect HAMI_CASTLE; specialeffect2 EF_BUBBLE; specialeffect2 HAMI_CASTLE; specialeffect2 805; specialeffect2 60; 
+specialeffect2 57; if($@Cuttins == 1) { set FishingAbuse,1; callfunc "Fishing_Loading"; } else progressbar "ffffff",$@FishLoadingTime; return; }
+function	script	Fishing_Loading	{ 
+if($@Cuttins==1) { mes "[ ^005500Fishing Statistics^000000 ]"; mes "^ff0000Reading Statistics, do not close.^000000"; 
+mes "Rank : [ ^00007f"+FishingLevel+"^000000 ] PR : [ ^ffaa00"+$@Probability+"^000000 / 200 ]"; mes "[ ^55aaff"+FishingNowExp+"^000000 / ^55007f"+$FishingExpMax[FishingLevel]+"^000000 ]"; }
+for ( set .@i, 1 ; .@i <= $@FLoadingCutins; set .@i, .@i + 1 ) { cutin $@FLoadingPicNames$ + .@i, 1 ;  sleep2 $@FLoadCPerPic; cutin "",255; } return 1; }
+function	script	FishingCasting	{ 
+specialeffect EF_BUBBLE; specialeffect HAMI_CASTLE; if($@Cuttins == 1) callfunc "FishingCutins"; else progressbar "ffffff",$@FishingCastTime; return;
+for (.@i = 0; .@i < getarraysize($@FishingCastFX); .@i++) specialeffect $@FishingCastFX[.@i]; for (.@i = 0; .@i < getarraysize($SpecialFX); .@i++) specialeffect2 $@FishingSFX1[.@i]; return; }		
+function	script	FishingCutins	{ 
+if($@Cuttins==1) { if($@FishingMode == 0) mes "........."; } for ( set .@i, 1 ; .@i <= $@FishingCutins ; set .@i, .@i + 1 ) 
+{ cutin $@FishingPicNames$ + .@i, 1 ; sleep2 $@CutinsPerPic; cutin "",255; } return 1; }
+function	script	Fishing_Skills	{ return; }
+function	script	Fish_SkillPoints	{ return; }	
+function	script	Fishing_Exp	{ 
+callfunc "Fishing_Points"; for (.@i = 0; .@i < getarraysize($@FishingEquips); .@i++) { if(isequipped($@FishingEquips[.@i]))  set FishingNowExp,FishingNowExp+$@FishingEquipsExp[.@i]; } 
+if(query_sql("SELECT `fexp` FROM `fishing_system` WHERE `name` = '"+strcharinfo(0)+"'",.@fexp)){ set .@fexp,FishingNowExp;
+query_sql("UPDATE `fishing_system` SET `fexp` = '"+.@fexp+"' WHERE `name` = '"+strcharinfo(0)+"'"); } else {
+query_sql("INSERT INTO `fishing_system` (`account_id`,`char_id`,`name`,`fexp` ) VALUES ('"+getcharid(3)+"','"+getcharid(0)+"','"+strcharinfo(0)+"','"+escape_sql(.@fexp)+"')"); } 
+if( FishingNowExp >= $@FishingExpMax[ FishingLevel ] ) { set FishingLevel, FishingLevel + 1 ; callfunc "Fish_SkillPoints"; set FishingNowExp, 0 ; dispbottom "Congratulations! Fishing Rank is promoted to ^ff0000" + $@FishingLevelName$[ FishingLevel ] + "^000000" ; 
+for(.@i = 0; .@i < getarraysize($@SpecialFXLVL); .@i++) specialeffect2 $@SpecialFXLVL[.@i]; if($@FishRankCutins == 1) { for( set .@i, 1 ; .@i <= $@FRankUpCutins ; set .@i, .@i + 1 ) { cutin $@FRankUpPicNames$ + .@i, 1 ;  sleep2 $@FLRankPerPic; } }
+if(query_sql("SELECT `flvl` FROM `fishing_system` WHERE `name` = '"+strcharinfo(0)+"'",.@flvl)){ set .@flvl,FishingLevel; query_sql("UPDATE `fishing_system` SET `flvl` = '"+.@flvl+"' WHERE `name` = '"+strcharinfo(0)+"'"); } else {
+query_sql("INSERT INTO `fishing_system` (`account_id`,`char_id`,`name`,`flvl` ) VALUES ('"+getcharid(3)+"','"+getcharid(0)+"','"+strcharinfo(0)+"','"+escape_sql(.@flvl)+"')"); } } 
+if( FishingLevel >= 50) set FishingNowExp,FishingNowExp + 0; return ; }
+function	script	Fishing_Points	{
+if($@Toggle == 1 || $@Toggle == 2 || $@Toggle == 3 || $@Toggle == 4) { 
+for (.@i = 0; .@i < getarraysize($@FishingEquips); .@i++) if(isequipped($@FishingEquips[.@i])) {  set #FishingPoints,#FishingPoints+$@FishingEquipsPts[.@i]; }										
+set #FishingPoints,#FishingPoints+$@FishingPoints[FishingLevel]; if(query_sql("SELECT `fpts` FROM `fishing_system` WHERE `name` = '"+strcharinfo(0)+"'",.@fpts)){ 
+set .@fpts,#FishingPoints; query_sql("UPDATE `fishing_system` SET `fpts` = '"+.@fpts+"' WHERE `name` = '"+strcharinfo(0)+"'"); }
+else { query_sql("INSERT INTO `fishing_system` (`account_id`,`char_id`,`name`,`fpts` ) VALUES ('"+getcharid(3)+"','"+getcharid(0)+"','"+strcharinfo(0)+"','"+escape_sql(.@fpts)+"')"); } } return; }
+function	script	Fish_Count	{
+if(query_sql("SELECT `fcot` FROM `fishing_system` WHERE `name` = '"+strcharinfo(0)+"'",.@fcot)){  
+set .@fcot,.@fcot+1; query_sql("UPDATE `fishing_system` SET `fcot` = '"+.@fcot+"' WHERE `name` = '"+strcharinfo(0)+"'"); } else {
+query_sql("INSERT INTO `fishing_system` (`account_id`,`char_id`,`name`,`fcot`) VALUES ('"+getcharid(3)+"','"+getcharid(0)+"','"+strcharinfo(0)+"','"+escape_sql(.@fcot)+"')"); } return; }
+function	script	Fish_Success	{
+if(query_sql("SELECT `fsuc` FROM `fishing_system` WHERE `name` = '"+strcharinfo(0)+"'",.@fsuc)){  set .@fsuc,.@fsuc+1;
+query_sql("UPDATE `fishing_system` SET `fsuc` = '"+.@fsuc+"' WHERE `name` = '"+strcharinfo(0)+"'"); }
+else { query_sql("INSERT INTO `fishing_system` (`account_id`,`char_id`,`name`,`fsuc`) VALUES ('"+getcharid(3)+"','"+getcharid(0)+"','"+strcharinfo(0)+"','"+escape_sql(.@fsuc)+"')"); } return; }
+function	script	Fish_Fail	{
+if(query_sql("SELECT `ffail` FROM `fishing_system` WHERE `name` = '"+strcharinfo(0)+"'",.@ffail)){ 
+set .@ffail,.@ffail+1; query_sql("UPDATE `fishing_system` SET `ffail` = '"+.@ffail+"' WHERE `name` = '"+strcharinfo(0)+"'"); } else {
+query_sql("INSERT INTO `fishing_system` (`account_id`,`char_id`,`name`,`ffail`) VALUES ('"+getcharid(3)+"','"+getcharid(0)+"','"+strcharinfo(0)+"','"+escape_sql(.@ffail)+"')");} return; }
+function	script	Fish_Moments	{
+if(query_sql("SELECT `fmom` FROM `fishing_system` WHERE `name` = '"+strcharinfo(0)+"'",.@fmom)){ 
+set .@fmom,.@fmom+1; query_sql("UPDATE `fishing_system` SET `fmom` = '"+.@fmom+"' WHERE `name` = '"+strcharinfo(0)+"'"); }
+else { query_sql("INSERT INTO `fishing_system` (`account_id`,`char_id`,`name`,`fmom`) VALUES ('"+getcharid(3)+"','"+getcharid(0)+"','"+strcharinfo(0)+"','"+escape_sql(.@fmom)+"')"); } return; }
+function	script	Fish_Encounter	{ 
+if(query_sql("SELECT `ffail` FROM `fishing_system` WHERE `name` = '"+strcharinfo(0)+"'",.@fenc)){ set .@fenc,.@fenc+1;
+query_sql("UPDATE `fishing_system` SET `fenc` = '"+.@fenc+"' WHERE `name` = '"+strcharinfo(0)+"'"); } else {
+query_sql("INSERT INTO `fishing_system` (`account_id`,`char_id`,`name`,`fenc`) VALUES ('"+getcharid(3)+"','"+getcharid(0)+"','"+strcharinfo(0)+"','"+escape_sql(.@fenc)+"')"); } return; }
+function	script	Fishing_ExpDisplay	{ 
+dispbottom "[ Fishing Rank: " + FishingLevel + ", Fishing Exp: " + FishingNowExp + " / " + $@FishingExpMax[ FishingLevel ] + " ] [Fishing Points: "+#FishingPoints+"]"; return; }
+function	script	Automatic_Fishing	{
+for (.@i = 0; .@i < getarraysize($@FishingEquipsNeed); .@i++){ if (!isequipped($@FishingEquipsNeed[.@i])) end; }	
+if ( countitem( $@FishingLure ) ) { 
+
+input .@item_count1 ; 
+if ( .@item_count1 == 0 ) 
+end ; 
+else if ( countitem( $@FishingLure ) >= .@item_count ) { 
+
+if($@Cuttins==1) { 
+mes "[ ^00007fFishing Statistics^000000 ]";  
+mes "^ff0000Reading statistics..^000000"; 
+mes "^ffaa00Do not close.....^000000";
+mes ""+getitemname($@FishingLure)+" Count : "+countitem($@FishingLure)+"";  
+set FishingAbuse,1; 
+}
+
+set .@item_count,100;
+callfunc "AutoFishing",$@Fisher_Name$,$@FishingLure,.@item_count; } } end; }
+function	script	AutoFishing	{ 
+set .@temp_total_count, countitem( getarg(1) ) ; for ( set .@i, getarg(2) ; .@i > 0  ; set .@i, .@i - 1 ) { delitem getarg(1), 1 ;
+set .@temp_total_count, .@temp_total_count - 1 ; if ( .@temp_total_count != countitem( getarg(1) ) ) { return ; }
+if(callfunc("AutoSuccess")) { callfunc "AutoFishSuccess"; } else return; } return ;}
+function	script	AutoSuccess	{
+set $@LureCount,$@LureCount+1; if($@Cuttins == 1){ callfunc "FishingCutins"; return 1; } if($@Cuttins == 0){ progressbar "ffffff",$@FishingCastTime; return 1; } }
+function	script	AutoFishSuccess	{ 
+for (@i = 0; @i < getarraysize($@FishingEquips); @i++){ 
+if(isequipped($@FishingEquips[@i])) set .@equiprates,$@LevelItemRate[FishingLevel]+$@FishingEquipsRate[@i]; }
+set .@chance,.@equiprates+$@FishingItemRate;	set .@probability, rand( 1, 200 ); if (.@probability < .@chance) { 
+specialeffect2 610; callfunc "Fishing_Exp";  callfunc "Fishing_ExpDisplay"; if (.@probability < $@FishingItemSP3Rate ) 
+set .@FReward,$@SuccessReward3[rand(getarraysize($@SuccessReward3))]; else if (.@probability < $@FishingItemSP3Rate + $@FishingItemSP2Rate ) 
+set .@FReward,$@SuccessReward2[rand(getarraysize($@SuccessReward2))]; else if (.@probability < $@FishingItemSP3Rate + $@FishingItemSP2Rate + $@FishingItemSP1Rate ) 
+set .@FReward,$@SuccessReward1[rand(getarraysize($@SuccessReward1))]; else set .@FReward,$@SuccessReward1[rand(getarraysize($@SuccessReward1))];
+if ( !FishingBoxOn ) {  getitem .@FReward,1; dispbottom ""+strcharinfo(0)+": I got a "+getitemname(.@FReward)+"!!";
+callfunc "Fish_Count"; callfunc "Fish_Success"; set $@CaughtFish,$@CaughtFish+1; callfunc "Non_Abuse_Autofish"; return 1;
+} else { callfunc "Fishing_Box_Save", .@FReward ; dispbottom ""+strcharinfo(0)+": I put "+getitemname(.@FReward)+" In the fishing box!!";
+callfunc "Fish_Count";  callfunc "Fish_Success"; set $@CaughtFish,$@CaughtFish+1; callfunc "Non_Abuse_Autofish"; return 1; 
+} } else specialeffect2 611; set .@FFail,$@FishingFailure[rand(getarraysize($@FishingFailure))];
+if ( !FishingBoxOn ) { getitem .@FFail,1; set $@FishFail,$@FishFail+1; dispbottom "Fail to catch fish! But manage to pull-out a "+getitemname(.@FFail)+"!!";
+callfunc "Fish_Fail";  callfunc "Non_Abuse_Autofish"; return 1; } 
+else callfunc "Fishing_Box_Save", .@FFail ;  set $@FishFail,$@FishFail+1; dispbottom "Fail to catch fish! But manage to pull-out a "+getitemname(.@FFail)+", and you put it on the box."; 
+callfunc "Fish_Fail"; callfunc "Non_Abuse_Autofish"; return 1;  }
+function	script	Non_Abuse_Autofish	{ 
+set .@rfish,rand(1,$@GrassNonAbuse); if(.@rfish == rand(1,$@GrassNonAbuse)) { set FishingAbuse,0;
+specialeffect 54; specialeffect 236; hideonnpc strnpcinfo(0); sleep2 250; if($@Cuttins==1) { mes "Total Fish Caught : [ ^aa0000"+$@CaughtFish+"^000000 ]";
+mes "Total Fishing Fails : [ ^555500"+$@FishFail+"^000000 ]"; mes "Total Lure Used: [ ^ffaa00"+$@LureCount+"^000000 ]"; mes "Lure Count: [ ^ff5500"+countitem($@FishingLure)+"^000000 ]";
+sleep2 250; set $@LureCount,0; set $@FishFail,0; set $@CaughtFish,0; sleep2 250; close2; sleep2 250; } sleep2 $@FishHidingTime; hideoffnpc strnpcinfo(0); end; } return; }
+function	script	Fishing_Box_Save	{
+query_sql "SELECT COUNT(`char_id`) FROM `fishing_system` WHERE `char_id` = " + getcharid(0), .@fexp ;
+if ( callfunc( "Fishing_Box_Save_Check", getarg(0), .@tempItemcount ) ) query_sql "UPDATE `fishing_system` SET `item_count` = " + ( .@tempItemcount + 1 ) + " WHERE `char_id` = " + getcharid(0) + " AND `item_id` = " + getarg(0) ;
+else if ( .@fexp >= $@FishingBoxLimit ) getitem getarg(0), 1 ;
+else query_sql "INSERT INTO `fishing_system` ( `char_id`, `item_id`, `item_count` ) VALUES ( " + getcharid(0) + ", " + getarg(0) + ", " + 1 + " )" ; return; }
+function	script	Fishing_Box_Save_Check	{
+query_sql "SELECT `item_id`, `item_count` FROM `fishing_system` WHERE `char_id` = " + getcharid(0), .@tempItemID, .@tempItemcount ;
+for ( set .@i, 0 ; .@i < getarraysize( .@tempItemID ) ; set .@i, .@i + 1 ) if ( .@tempItemID[ .@i ] == getarg(0) ) { set getarg(1), .@tempItemcount[ .@i ] ; return 1 ; }  return 0 ; }
+function	script	Fishing_Box_Load_Process	{
+set .@p,getarg(0); copyarray .@temp_ID,getarg(1),getarraysize(getarg(1));  copyarray .@temp_count,getarg(2),getarraysize( getarg(2)); set getarg(3), prompt (.@temp_ID[ .@p ] ? getitemname(.@temp_ID[.@p]) + " [ ^ff0000" + .@temp_count[ .@p ] + "^000000 ]" : "", 
+.@temp_ID[ .@p+1 ] ? getitemname( .@temp_ID[ .@p+1 ] ) + " [ ^ff0000" + .@temp_count[ .@p+1 ] + "^000000 ]" : "", .@temp_ID[ .@p+2 ] ? getitemname( .@temp_ID[ .@p+2 ] ) + " [ ^ff0000" + .@temp_count[ .@p+2 ] + "^000000 ]" : "", .@temp_ID[ .@p+3 ] ? getitemname( .@temp_ID[ .@p+3 ] ) + " [ ^ff0000" + .@temp_count[ .@p+3 ] + "^000000 ]" : "", 
+.@temp_ID[ .@p+4 ] ? getitemname( .@temp_ID[ .@p+4 ] ) + " [ ^ff0000" + .@temp_count[ .@p+4 ] + "^000000 ]" : "", .@temp_ID[ .@p+5 ] ? getitemname( .@temp_ID[ .@p+5 ] ) + " [ ^ff0000" + .@temp_count[ .@p+5 ] + "^000000 ]" : "", .@temp_ID[ .@p+6 ] ? getitemname( .@temp_ID[ .@p+6 ] ) + " [ ^ff0000" + .@temp_count[ .@p+6 ] + "^000000 ]" : "", 
+.@temp_ID[ .@p+7 ] ? getitemname( .@temp_ID[ .@p+7 ] ) + " [ ^ff0000" + .@temp_count[ .@p+7 ] + "^000000 ]" : "", .@temp_ID[ .@p+8 ] ? getitemname( .@temp_ID[ .@p+8 ] ) + " [ ^ff0000" + .@temp_count[ .@p+8 ] + "^000000 ]" : "", .@temp_ID[ .@p+9 ] ? getitemname( .@temp_ID[ .@p+9 ] ) + " [ ^ff0000" + .@temp_count[ .@p+9 ] + "^000000 ]" : "", 
+.@temp_ID[ .@p+10 ] ? getitemname( .@temp_ID[ .@p+10 ] ) + " [ ^ff0000" + .@temp_count[ .@p+10 ] + "^000000 ]" : "", .@temp_ID[ .@p+11 ] ? getitemname( .@temp_ID[ .@p+11 ] ) + " [ ^ff0000" + .@temp_count[ .@p+11 ] + "^000000 ]" : "", .@temp_ID[ .@p+12 ] ? getitemname( .@temp_ID[ .@p+12 ] ) + " [ ^ff0000" + .@temp_count[ .@p+12 ] + "^000000 ]" : "", 
+.@temp_ID[ .@p+13 ] ? getitemname( .@temp_ID[ .@p+13 ] ) + " [ ^ff0000" + .@temp_count[ .@p+13 ] + "^000000 ]" : "", .@temp_ID[ .@p+14 ] ? getitemname( .@temp_ID[ .@p+14 ] ) + " [ ^ff0000" + .@temp_count[ .@p+14 ] + "^000000 ]" : "", .@temp_ID[ .@p+15 ] ? getitemname( .@temp_ID[ .@p+15 ] ) + " [ ^ff0000" + .@temp_count[ .@p+15 ] + "^000000 ]" : "", 
+.@temp_ID[ .@p+16 ] ? getitemname( .@temp_ID[ .@p+16 ] ) + " [ ^ff0000" + .@temp_count[ .@p+16 ] + "^000000 ]" : "", .@temp_ID[ .@p+17 ] ? getitemname( .@temp_ID[ .@p+17 ] ) + " [ ^ff0000" + .@temp_count[ .@p+17 ] + "^000000 ]" : "", .@temp_ID[ .@p+18 ] ? getitemname( .@temp_ID[ .@p+18 ] ) + " [ ^ff0000" + .@temp_count[ .@p+18 ] + "^000000 ]" : "", 
+.@temp_ID[ .@p+19 ] ? getitemname( .@temp_ID[ .@p+19 ] ) + " [ ^ff0000" + .@temp_count[ .@p+19 ] + "^000000 ]" : "" ) ; return getarg(3); }
+function	script	Check_Requirements	{					
+for (.@i = 0; .@i < getarraysize($@FishingEquipsNeed); .@i++){ if (!isequipped($@FishingEquipsNeed[.@i])) end; }											
+for (.@i = 0; .@i < getarraysize($@FishingMaterials); .@i++){ if (countitem($@FishingMaterials[.@i]) < $@AmountPerMaterials[.@i]) end; } 
+for (.@i = 0; .@i < getarraysize($@FishingMaterials); .@i++)  delitem $@FishingMaterials[.@i], $@AmountPerMaterials[.@i]; if($@Cuttins == 1 ) { set FishingAbuse,1; } return; }	   
+function	script	Fish_Timer	{
+set FishingAbuse,0; specialeffect 54; specialeffect 236; hideonnpc strnpcinfo(0); sleep2 $@FishHidingTime; hideoffnpc strnpcinfo(0); return; }
+function	script	Fishing_Box_Load	{ 
+set .@Fishing_Box_Name$,"[ ^00557f"+strcharinfo(0)+" Fish Box^000000 ]"; 
+query_sql "SELECT `item_id`, `item_count` FROM `fishing_system` WHERE `char_id` = " + getcharid(0), .@tempItemID, .@tempItemcount ;
+mes .@Fishing_Box_Name$; mes "Box Level: [ ^ff0000" + FishingBoxLevel + "^000000 ]";
+mes "Box Item Limit: [ ^005500" + ( $@FishingBoxLimit + FishingBoxLevel ) + "^000000 ]" ; //cutin $FishBoxCutin1$,3;
+next ; callfunc( "Fishing_Box_Load_Process", 0, .@tempItemID, .@tempItemcount, .@select ) ;
+if ( .@select != 255 ) { mes .@Fishing_Box_Name$; mes "Get your [ ^55557f" + getitemname( .@tempItemID[ .@select - 1 ] ) + "^000000 ] ?" ;
+mes "Item Count: [ ^00aa7f" + .@tempItemcount[ .@select - 1 ] + "^000000 ]"; mes "^ff0000 --- !! WARNING !! ---^000000" ;
+mes "Wait for the process to load!" ; mes "^ff0000Do not log out at the moment.^000000" ; //cutin $@FishBoxCutin2$,3;
+next ; input .@count ; if ( .@count > 0 && .@count <= .@tempItemcount[ .@select - 1 ] ) {
+query_sql "UPDATE `fishing_system` SET `item_count` = " + ( .@tempItemcount[ .@select - 1 ] - .@count ) + " WHERE `char_id` = " + getcharid(0) + " AND `item_id` = " + .@tempItemID[ .@select - 1 ] ;
+getitem .@tempItemID[ .@select - 1 ], .@count ; if ( ( .@tempItemcount[ .@select - 1 ] - .@count ) == 0 )
+query_sql "DELETE FROM `fishing_system` WHERE `fishing_system`.`char_id` = " + getcharid(0) + " AND `fishing_system`.`item_id` = " + .@tempItemID[ .@select - 1 ] ; } 
+else { mes .@Fishing_Box_Name$; mes "Fishing Box Loaded!" ; cutin "",255; close; } } return ; }
+function	script	FishingQuestPrize	{
+for(.@i=0; .@i < getarraysize($@FishingQuestRewards); .@i++) getitem $@FishingQuestRewards[.@i],$@QuestAmounts[.@i]; set CanFishNow,1; return; }
+function	script	Fishing_Successful	{ 
+callfunc "Fishing_Dialogues"; callfunc "FishingCasting"; if ($@Cuttins == 1) { mes "^aa0000Grab the line now...^000000"; close2; sleep2 250; } 
+for(@i = 0; @i < getarraysize($@FishingEquips); @i++){ if(isequipped($@FishingEquips[@i])) set $@EquipRates,$@LevelItemRate[FishingLevel]+$@FishingEquipsRate[@i]; }
+set $@Probability,$@EquipRates+$@FishingItemRate;	 set .@probability, rand( 1, 200 ); if (.@probability < $@Probability) { specialeffect2 610; callfunc "Fishing_Exp";  callfunc "Fishing_ExpDisplay";
+if (.@probability < $@FishingItemSP3Rate ) set .@FReward,$@SuccessReward3[rand(getarraysize($@SuccessReward3))];
+else if (.@probability < $@FishingItemSP3Rate + $@FishingItemSP2Rate ) set .@FReward,$@SuccessReward2[rand(getarraysize($@SuccessReward2))];
+else if (.@probability < $@FishingItemSP3Rate + $@FishingItemSP2Rate + $@FishingItemSP1Rate ) set .@FReward,$@SuccessReward1[rand(getarraysize($@SuccessReward1))];
+else set .@FReward,$@SuccessReward1[rand(getarraysize($@SuccessReward1))];
+if ( !FishingBoxOn ) { getitem .@FReward,1; dispbottom ""+strcharinfo(0)+": I got a "+getitemname(.@FReward)+"!!"; callfunc "Fish_Count"; callfunc "Fish_Success"; callfunc "Fish_Timer"; end;	
+} else { callfunc "Fishing_Box_Save", .@FReward ; dispbottom ""+strcharinfo(0)+": I put "+getitemname(.@FReward)+" In the fishing box!!"; callfunc "Fish_Count"; callfunc "Fish_Success"; callfunc "Fish_Timer"; end; } 
+} else specialeffect2 611; set .@FFail,$@FishingFailure[rand(getarraysize($@FishingFailure))];
+if ( !FishingBoxOn ) { getitem .@FFail,1; dispbottom "Fail to catch fish! But manage to pull-out a "+getitemname(.@FFail)+"!!";
+callfunc "Fish_Fail"; callfunc "Fish_Timer"; end; } else callfunc "Fishing_Box_Save", .@FFail ; dispbottom "Fail to catch fish! But manage to pull-out a "+getitemname(.@FFail)+", and you put it on the box."; 
+callfunc "Fish_Fail"; callfunc "Fish_Timer"; end; return; }

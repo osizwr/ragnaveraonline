@@ -1,0 +1,29 @@
+veratemple,189,149,3	script	Brokkr	448,{
+
+	mes "[ Blacksmith: Brokkr ]";
+	mes "Greetings, traveler!";
+	mes "";
+    mes "Are you ready to forge your destiny with my legendary refining?";
+    next;
+	mes "[ Blacksmith: Brokkr ]";
+	mes "Please, select first, which armor position are you gonna refine...";
+	next;
+	switch(select("Armor:Headgear:Weapon")){
+		case 1:
+			callfunc( "armorRefine",198,0,10,1,1,0,-1,100,10,30004 );
+			break;
+		case 2:
+			callfunc( "headgearRefine",48,0,10,1,1,0,-1,100,10,30004 );
+			break;
+		case 3:
+			callfunc( "weaponRefine",256,0,10,1,1,0,-1,100,10,30004 );
+			break;
+	}
+
+OnInit:
+	while(1) {
+		showscript "Master Refiner", getnpcid(0);
+		sleep 1000;
+	}
+	end;
+}

@@ -1,0 +1,83 @@
+
+verabay,147,195,5	script	Fishing Ladder Board	857,{
+goto mainmenu; mainmenu: mes "[ ^aa557fFishing Ladder Board^000000 ]"; mes "You check the fishing ladder board."; next;
+menu "[ ^aa557fInformation^000000 ]",FInfo,"[ ^ff0000Ranking^000000 ]",FRank,"[ ^aaaa7fExpedition^000000 ]",FExpe; 
+FInfo:  
+			mes "[ ^aa557fFishing Ladder Board^000000 ]";
+			if($@FishingMode == 0 ) mes "There are [ ^aa0000TWO-TYPES^000000 ] of"; 
+			mes "^005500LADDER:^000000"; 
+			mes "[ ^ffaa00Ranking^000000 ]"; 
+			if($@FishingMode == 0 ) mes "[ ^55007fExpedition^000000 ]";
+			//cutin $@FishingLadderInfo$,3;
+			next;
+			mes "[ ^aa557fFishing Ladder Board^000000 ]";
+			mes "^ffaa00RANKING^000000 will automatical list"; 
+			mes "^ff0000[ TOP-5 Fishers ]^000000"; 
+			mes "regarding the following."; 
+			mes "^ff5500Fishing Level [ FL ]^000000";  
+			mes "^005500Fishing Experience [ FE ]^000000"; 
+			mes "^00aaffTotal Fish Caught [ FC ]^000000";	
+			//cutin $@FishingLadderRank$,3;	
+			mes "[ ^aa557fFishing Ladder Board^000000 ]";
+			mes "^55007fEXPEDITION^000000 will automatical list"; 
+			mes "^ff0000[ TOP-5 Fishers ]^000000"; 
+			mes "regarding the following.";
+			mes "^005500Fishing Success [ FC ]^000000"; 
+			mes "^00aa7fFishing Fail [ FF ]^000000";  
+			if($@FishingMode == 0 ) { mes "^ff5500Fish Monster Encounters [ FN ]^000000";
+			mes "^55aaffRewarding Moments [ FM ]^000000"; }
+			//cutin $@FishingLadderExpe$,3; 
+			next; 
+			menu "^005500[ Return ]^000000",mainmenu; 
+			close; 
+// ======================================================= DONT CHANGE ANYTHING HERE UNLESS YOU KNOW HOW LADDER IS DONE...
+FRank:
+	query_sql("SELECT name, `flvl`, `fexp`, `fpts`, `fcot` FROM `fishing_system` ORDER BY flvl DESC LIMIT 5",.@n$,.@fl,.@fe,.@fp,.@fc); 
+	mes "Hall Of Fame: Fishing Ladder"; 
+	mes "^ff0000Name^000000:^ff5500[ FL ]^000000:^005500[ FE ]^000000:^55007f[ FP ]^000000:^55ffff[ FC ]^000000"; 
+	//cutin $@FishingLadderRank$,3;
+		mes "1. ["+.@n$[0]+"] ("+.@fl[0]+") ("+.@fe[0]+") ("+.@fp[0]+") ("+.@fc[0]+")"; 
+		mes "2. ["+.@n$[1]+"] ("+.@fl[1]+") ("+.@fe[1]+") ("+.@fp[1]+") ("+.@fc[1]+")"; 
+		mes "3. ["+.@n$[2]+"] ("+.@fl[2]+") ("+.@fe[2]+") ("+.@fp[2]+") ("+.@fc[2]+")"; 
+		mes "4. ["+.@n$[2]+"] ("+.@fl[3]+") ("+.@fe[3]+") ("+.@fp[3]+") ("+.@fc[3]+")"; 
+		mes "5. ["+.@n$[2]+"] ("+.@fl[3]+") ("+.@fe[3]+") ("+.@fp[3]+") ("+.@fc[3]+")"; 
+	 
+	next; 
+	menu "^005500[ Return ]^000000",mainmenu; 
+close;  
+
+FExpe:  
+	query_sql("SELECT `name`, `fsuc`, `ffail`, `fenc`, `fmom` FROM `fishing_system` ORDER BY fsuc DESC LIMIT 5",.@n1$,.@fs,.@ff,.@fn,.@fm);
+	mes "Hall Of Fame: Fishing Ladder"; 
+	if($@FishingMode == 0 ) { 
+		mes "^ff0000Name^000000:^005500[ FS ]^000000:^55aa00[ FF ]^000000:^ff5500[ FN ]^000000:^55ffff[ FM ]^000000"; 
+	}
+	if($@FishingMode == 1 ) { 
+		mes "^ff0000Name^000000:^005500[ FS ]^000000:^55aa00[ FF ]^000000:^ff5500"; 
+	}
+	
+		if($@FishingMode == 0 ) { 
+			mes "1. ["+.@n1$[0]+"] ("+.@fs[0]+") ("+.@ff[0]+") ("+.@fn[0]+") ("+.@fm[0]+")"; 
+			mes "2. ["+.@n1$[1]+"] ("+.@fs[1]+") ("+.@ff[1]+") ("+.@fn[1]+") ("+.@fm[1]+")"; 
+			mes "3. ["+.@n1$[2]+"] ("+.@fs[2]+") ("+.@ff[2]+") ("+.@fn[2]+") ("+.@fm[2]+")"; 
+			mes "4. ["+.@n1$[3]+"] ("+.@fs[3]+") ("+.@ff[3]+") ("+.@fn[3]+") ("+.@fm[3]+")"; 
+			mes "5. ["+.@n1$[4]+"] ("+.@fs[4]+") ("+.@ff[4]+") ("+.@fn[4]+") ("+.@fm[4]+")"; 
+		}
+		if($@FishingMode == 1 ) { 
+			mes "1. ["+.@n1$[0]+"] ("+.@fs[0]+") ("+.@ff[0]+")"; 
+			mes "2. ["+.@n1$[1]+"] ("+.@fs[1]+") ("+.@ff[1]+")"; 
+			mes "3. ["+.@n1$[2]+"] ("+.@fs[2]+") ("+.@ff[2]+")"; 
+			mes "4. ["+.@n1$[3]+"] ("+.@fs[3]+") ("+.@ff[3]+")"; 
+			mes "5. ["+.@n1$[4]+"] ("+.@fs[4]+") ("+.@ff[4]+")"; 
+		} 
+	//cutin $@FishingLadderExpe$,3;
+	next; 
+	menu "^005500[ Return ]^000000",mainmenu; 
+	close; 
+	OnInit:
+	while (1) {
+		showscript "Fishing Ladder", getnpcid(0);
+		sleep 1000;
+	}
+end;
+	}

@@ -1,0 +1,309 @@
+-	pointshop	goldPointsShop	1,#GOLDPOINTS,675:10,671:100,12103:500,674:1000,7621:2500
+
+veratemple,131,118,3	script	Gon	702,{
+
+	set @NPC$,"[ Gon ]";
+	set $@goldMap$, "goldroom";
+	set $@mainTown$, "veratemple";
+	.@goldEntry = 250000;
+	
+	if(#goldtime <= 0){
+		set #goldtime, 360;
+	}
+	mes @NPC$;
+	mes "Hey, I know a place where you can find great amount of golds from a rare monster.";
+    next;
+	mes @NPC$;
+	mes "Killing those monster will have you gain a random amount of ^FF0000Gold Points^000000 which you may trade into a real Gold!";
+	next;
+	mes @NPC$;
+	mes "Just a heads up, there are tiny insects that are lurking around the dungeon and they are very strong!";
+	mes "^777777--------------------Warning--------------------^000000";
+	mes "^FF0000If you die inside, you will lose 25% of your total earned points.^000000";
+	next;
+	switch(select("Enter Gold Dungeon:Gold Shop:Exchange Points:^FF0000Check my Status^000000")){
+		case 1:
+			mes @NPC$;
+			mes "I need ^FF0000250,000 Zeny^000000, then I will be able to bring you into the gold dungeon.";
+			next;
+			switch(select("Here, I got your zeny.:Let me think first.")){
+				case 1:
+				.passcode_length = 8;
+
+					// Generate a random passcode with the specified characters and length
+					setarray passcode$, "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+						"A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+						"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")"; // Add the special characters here
+
+					set .@correct_passcode$, "";
+
+					for (.@i = 0; .@i < .passcode_length; ++.@i) {
+						.@index = rand(getarraysize(passcode$) - 1);
+						.@correct_passcode$ += passcode$[.@index];
+					}
+					
+					mes @NPC$;
+					mes "Please enter the following phrase to enter: ^FF0000" + .@correct_passcode$;
+					next;	
+					input .@phrase$;
+
+					if (.@phrase$ != .@correct_passcode$) {
+						mes @NPC$;
+						mes "What you entered did not match the passphrase.";
+						mes "Please speak with me again to re-enter the phrase.";
+						close;
+					}
+					if (Zeny < .@goldEntry || #goldtime <= 1) {
+						mes @NPC$;
+						mes "You don't have enough ^FF0000zeny^000000 or dont have enough ^FF0000time left^000000.";
+						close;
+					} else {
+						mes @NPC$;
+						mes "Here we go!";
+						set Zeny, Zeny - .@goldEntry;
+						next;
+						warp $@goldMap$, 154, 154;
+						end;
+					}
+					break;
+				case 2:
+					mes @NPC$;
+					mes "Just let me know if you are ready.";
+					close;
+			}
+			break;
+		case 2:
+			callshop "goldPointsShop", 0;
+			end;
+			break;
+		case 3:
+			if( #GOLDPOINTS == 0 ) {
+				mes @NPC$;
+				mes "You don't have enough Gold Points to exchange.";
+				close;
+			}
+			mes @NPC$;
+			mes "You currently have "+F_InsertPlural(#GOLDPOINTS, "Gold Point")+".";
+			mes "Do you want to exchange them all or decide on how many you will exchange?";
+			next;
+			switch(select("Exchange all of my Gold Points:Decide on how many will I exchange:Cancel")) {
+				case 1:
+					if(!checkweight(969,#GOLDPOINTS)) {
+						mes @NPC$;
+						mes "Sorry, you can't carry these gold bars.";
+						close;
+					} else {
+						getitem 969,#GOLDPOINTS;
+						#GOLDPOINTS = 0;
+						mes @NPC$;
+						mes "Here's your gold bars.";
+						mes "You currently have "+F_InsertPlural(#GOLDPOINTS, "Gold Point")+".";
+						close;
+					}
+					break;
+				
+				case 2:
+					mes @NPC$;
+					mes "Input how many gold points will you get.";
+					next;
+					input .@gpoint,0,30000;
+					if( .@gpoint > #GOLDPOINTS ) {
+						mes @NPC$;
+						mes "Sorry, you don't have enough gold points to exchange.";
+						close;
+					} else {
+						if(!checkweight(969,.@gpoint)) {
+							mes @NPC$;
+							mes "Sorry, you can't carry these gold bars.";
+							close;
+						} else {
+							getitem 969, .@gpoint;
+							#GOLDPOINTS -= .@gpoint;
+							mes @NPC$;
+							mes "Here's your gold bars.";
+							mes "You currently have "+F_InsertPlural(#GOLDPOINTS, "Gold Point")+".";
+							close;
+						}
+					}
+					break;
+			}
+			close;
+			break;
+		case 4:
+			mes @NPC$;
+			if (#goldtime <= 1) {
+			mes "Time left: ^FF0000[0/" + .max_goldtime + "]^000000 minutes.";
+			mes "";
+			mes "You currently have ^FF0000" + #GOLDPOINTS + "^000000 Gold Points.";
+			end;
+			}
+			mes "Time left: ^FF0000[" + #goldtime + "/" + .max_goldtime + "]^000000 minutes.";
+			mes "";
+			mes "You currently have ^FF0000" + #GOLDPOINTS + "^000000 Gold Points.";
+			close;
+			break;
+	}
+	
+OnInit:
+	.max_goldtime = 360;
+	while (1) {
+		showscript "Gold Room ["+.@count+"]", getnpcid(0);
+		.@count = getmapusers("goldroom");
+		if (.@count != .count) {
+			.count = .@count;
+			showscript "Gold Room ["+.@count+"]", getnpcid(0);
+		}
+		sleep 1000;
+	}
+end;
+}
+
+// Inside the Gold Dungeon NPC to exit or display time left
+goldroom,157,158,3	script	Gon::insideGoldRoom	702,{
+	set @NPC$,"[ Gon ]";
+	set $@mainTown$, "veratemple";
+
+	mes @NPC$;
+	mes "Do you want to exit the Gold Dungeon?";
+	next;
+	switch(select("Not yet:Yes")) {
+		case 1:
+			close;
+			break;
+		case 2:
+			mes "Exiting the dungeon.";
+			warp $@mainTown$, 120, 154;
+			close;
+			break;
+	}
+}
+
+goldroom,154,154,150	script	goldtimes#goldroom	110,150,150,{
+
+OnInit:
+    bindatcmd "gtime", strnpcinfo(3) + "::OnStatusCheck";
+    .cooldown_second = 60000;       // Cooldown interval in milliseconds (60 sec)
+    .minusgoldtime = 1;             // Stamina deduction per cooldown
+    .max_goldtime = 360;            // Maximum stamina
+    .min_goldtime = 1;              // Minimum stamina (when the player's stamina is "empty")
+    hideonnpc strnpcinfo(0);
+end;
+
+OnStatusCheck:
+	if (#goldtime <= 1) {
+		dispbottom "[ Gon ] Gold Room Time left: [0/" + .max_goldtime + "]";
+	end;
+	}
+    dispbottom "[ Gon ] Gold Room Time left: [" + #goldtime + "/" + .max_goldtime + "]";
+end;
+
+OnTouch:
+    dispbottom "[ Gon ] Your time is now running.";
+    set @stma, 1;
+
+    while (@stma == 1) {
+        // Deduct gold time
+        set #goldtime, #goldtime - .minusgoldtime;
+        dispbottom "[ Gon ] Gold Room Time left: [" + #goldtime + "/" + .max_goldtime + "]";
+		
+		sleep2 .cooldown_second;
+		
+        // Check if the time has expired
+        if (#goldtime < .min_goldtime) {
+            dispbottom "[ Gon ] Time is up! Warping to main town.";
+			set #goldtime, 1;
+            warp "veratemple", 120, 154;
+            end;  // Stop the script after warp
+        }
+
+        // Recheck if the player is still in the "goldroom" map
+        getmapxy(@mapname$, @mapx, @mapy, BL_PC, "" + strcharinfo(0) + "");
+
+        // If the player is not in the "goldroom" map, stop the timer and exit the loop
+        if (@mapname$ != "goldroom") {
+            dispbottom "You have left the Gold Room. Time deduction stopped.";
+            @stma = 0;  // Stop the timer and exit the loop
+        }
+		
+    }
+end;
+
+}
+
+
+veratemple,1,1,3	script	Daily_Reset	111,{
+    
+OnInit:
+    disablenpc strnpcinfo(0);
+    end;
+
+OnClock0000:
+    // Reset #goldtime to 360 for all players (including offline)
+    query_sql "UPDATE `acc_reg_num` SET `value` = 360 WHERE `key` = '#goldtime'";
+	query_sql "UPDATE `acc_reg_num` SET `value` = 200 WHERE `key` = '#dailyCredit'";
+
+    for (set .@i, 0; .@i < getusers(1); set .@i, .@i + 1) {
+        addrid(0);  // Attach all players
+        set #goldtime, 360;
+		set #dailyCredit, 200;
+        detachrid();
+    }
+
+    // Send a message to all players that the reset has occurred
+    announce "The daily reset has occurred! Gold Room Time & Daily Credit is now reset.", bc_all;
+
+    end;
+
+}
+
+-	script	GOLD_POINTS	-1,{
+
+	OnInit:
+		.map$ = "goldroom";
+        setarray .gold_amount,1,3;
+		.golddie = 25;
+	end;
+
+	OnNPCKillEvent:
+		setarray .goldMonster, 2992; // Add monster IDs to this list
+
+		for (.@i = 0; .@i < getarraysize(.goldMonster); .@i++) {
+			if (killedrid == .goldMonster[.@i] && rand(100) < 50){
+				.@point = rand( .gold_amount[0],.gold_amount[1] );
+				#GOLDPOINTS += .@point;
+				dispbottom "You've gained "+.@point+" Gold Point(s). Total: "+ #GOLDPOINTS +" Gold Points.";
+			}
+		}
+	end;
+	
+	OnPCDieEvent:
+		if (strcharinfo(3) != "goldroom" || killerrid == getcharid(3)) end;
+		getmapxy .@map$, .@x, .@y;
+		set #GOLDPOINTS, #GOLDPOINTS - (#GOLDPOINTS/4);
+		dispbottom "You've died.";
+		dispbottom "Your Gold Points is deducted by 25%. Total: "+ #GOLDPOINTS +" Gold Points.";
+	end;
+	}
+
+goldroom,0,0,0,0	monster	Corrupted Lude	2992,100,35000,240000
+goldroom,0,0,0,0	monster	Corrupted Lude	2992,100,40000,260000
+goldroom,0,0,0,0	monster	Corrupted Lude	2992,100,45000,280000
+goldroom,0,0,0,0	monster	Corrupted Lude	2992,100,50000,300000
+goldroom,0,0,0,0	monster	Corrupted Lude	2992,150,85000,320000
+goldroom,0,0,0,0	monster	Corrupted Lude	2992,200,90000,340000
+goldroom,0,0,0,0	monster	Corrupted Lude	2992,200,95000,360000
+goldroom,0,0,0,0	monster	Corrupted Lude	2992,425,100000,400000
+goldroom,0,0,0,0	monster	Corrupted Lude	2992,425,105000,450000
+
+goldroom	mapflag	nobranch
+goldroom	mapflag	novending
+goldroom	mapflag	nowarp
+goldroom	mapflag	nowarpto
+goldroom	mapflag	noicewall
+goldroom	mapflag	nomemo
+goldroom	mapflag	nosave
+goldroom	mapflag	noreturn
+goldroom	mapflag	nodrop
+goldroom	mapflag	nomobloot
+goldroom	mapflag	nomvploot
+goldroom	mapflag	noskill

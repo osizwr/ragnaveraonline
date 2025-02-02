@@ -1,0 +1,113 @@
+mainhall,105,50,3	script	Break the Seal	811,{
+
+	if(#alreadybreak==1) goto break_end;
+	mes "[Brunnhilde]";
+	mes "I will foretell you about Breaking the Seal Quest";
+	mes "I am the guardian of the seal, break it and recieve my treasure.";
+	next;
+	mes "[Brunnhilde]";
+	mes "These are what I need:";
+	mes " > ^008000{1054} 100x Ancient Lips^000000";
+	mes " > ^008000{7297} 20x Biotite^000000";
+	mes " > ^008000{7018} 20x Young Twig^000000";
+	mes " > ^008000{7035} 20x Matchstick^000000";
+	next;
+	mes "[Brunnhilde]";
+	mes "These are what I need:";
+	mes " > ^008000{7289} 20x Peridot^000000";
+	mes " > ^008000{7048} 20x Talon of Griffon^000000";
+	mes " > ^008000{7020} 20x Mother's Nightmare^000000";
+	mes " > ^008000{7290} 20x Phlogopite^000000";
+	next;
+	mes "[Brunnhilde]";
+	mes "These are what I need:";
+	mes " > ^008000{7296} 20x Pyroxene^000000";
+	mes " > ^008000{7293} 20x Rose Quartz^000000";
+	mes " > ^008000{7211} 20x Fragment of Rossata^000000";
+	mes " > ^008000{1009} 200x Hand of God^000000";
+	next;
+	mes "[Brunnhilde]";
+	mes "These are what I need:";
+	mes " > ^008000{7292} 20x Muscovite^000000";
+	mes " > ^008000{7291} 20x Agate^000000";
+	mes " > ^008000{7450} 20x Skeletal Armor Piece^000000";
+	mes " > ^008000{7442} 300x Cursed Seal^000000";
+	next;
+	mes "[Brunnhilde]";
+	mes "So, are you up to my quest dear child?";
+	menu "Yes!",-, "No, I'm sorry",L_later;
+
+	mes " ";
+	mes "Are the items ready? Let me check.";
+	next;
+	if(countitem(1054) < 100 || countitem(7297) < 20 || countitem(7018) < 20 || countitem(7035) < 20 ||countitem(7289) < 20 ||countitem(7048) < 20 || countitem(7020) < 20 || countitem(7290) < 20 || countitem(7296) < 20 || countitem(7293) < 20 || countitem(7211) < 20 || countitem(1009) < 200 || countitem(7292) < 20 || countitem(7291) < 20 || countitem(7450) < 20 || countitem(7442) < 300){
+		mes "[Brunnhilde]";
+		mes "*piff*";
+		mes "You lack some items.";
+		mes "I do not accept cowardice, come back to me when you're brave enough.";
+		close;
+	}
+	delitem 1054,100;
+	delitem 7297,20;
+	delitem 7018,20;
+	delitem 7035,20;
+	delitem 7289,20;
+	delitem 7048,20;
+	delitem 7020,20;
+	delitem 7290,20;
+	delitem 7296,20;
+	delitem 7293,20;
+	delitem 7211,20;
+	delitem 1009,200;
+	delitem 7292,20;
+	delitem 7291,20;
+	delitem 7450,20;
+	delitem 7442,300;
+	getitem 30084,1;
+	getitem 30085,1;
+	getitem 30086,1;
+	getitem 30087,1;
+	getitem 30088,1;
+	getitem 30089,1;
+	mes "[Brunnhilde]";
+	mes "Another brave one succeded.";
+	set #alreadybreak,1;
+	next;
+	switch(select("You're Welcome")){
+		case 1: // Castle Drops
+		  set .@gamble1,rand(1,500);
+		  if ((.@gamble1 > 200) && (.@gamble1 < 205)) {
+		set .@gamble2,rand(1,10);
+		if	  ((.@gamble2 > 0) && (.@gamble2 <  3)) set .@item,7086; // esg
+		else if ((.@gamble2 > 2) && (.@gamble2 <  5)) set .@item,7090; // ripple
+		else if ((.@gamble2 > 4) && (.@gamble2 <  7)) set .@item,7091; // billow
+		else if ((.@gamble2 > 6) && (.@gamble2 <  9)) set .@item,7077; // silver
+		else if ((.@gamble2 > 8) && (.@gamble2 < 11)) set .@item,7078; // wov
+		  }
+		  else if ((.@gamble1 >   0) && (.@gamble1 < 201)) set .@item,7086; // esg
+		  else if ((.@gamble1 > 204) && (.@gamble1 < 301)) set .@item,7090; // ripple
+		  else if ((.@gamble1 > 300) && (.@gamble1 < 401)) set .@item,7091; // billow
+		  else if ((.@gamble1 > 401) && (.@gamble1 < 481)) set .@item,7077; // silver
+		  else if ((.@gamble1 > 480) && (.@gamble1 < 501)) set .@item,7078; // wov
+		break;
+		}
+		getitem .@item,1;
+	mes "[Brunnhilde]";
+	mes "Ah, you have out done your self!";
+	mes "Thank you for your aid.";
+	mes "Now start your journey to find my Nephews who hold the Valkyries";
+	announce "Break the Seal : The Seal has been annihilated by "+strcharinfo(0)+". He has just broken the seal and will start the Quest of Dawn Valkyrie!","0x33FF66";
+	close2;
+	end;
+
+L_later:
+	next;
+	mes "[Brunnhilde]";
+	mes "Well too bad";
+	mes "Child, I don't like to call you a coward, but you are.";
+	close;
+
+break_end:
+	callfunc "hshop",6;
+	close;
+}

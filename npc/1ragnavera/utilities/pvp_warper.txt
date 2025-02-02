@@ -1,0 +1,44 @@
+veratemple,122,150,3	script	PvP Warper	615,{ //615/730 default
+
+	.@npc$ = "["+strnpcinfo(0)+"]";
+	mes .@npc$;
+	mes "Would you like to enter the PvP Room?";
+	next;
+	switch(select("Enter Room ["+getmapusers("pvp_ev")+"]:Cancel")) {	// Change pvp_y_2-2 into your PvP Map
+	
+		case 1:
+			warp "pvp_ev",0,0;	// Change pvp_y_2-2 into your PvP Map
+			announce ""+strcharinfo(0)+" Enters the PvP Room.",bc_all|bc_blue;
+			end;
+			
+		case 2:
+			close;
+	}
+
+OnInit:
+	while (1) {
+showscript "PvP Room ["+getmapusers("pvp_ev")+"]";
+sleep 1000;
+}
+	end;
+
+OnAgitStart:
+hideonnpc strnpcinfo(0);
+end;
+
+OnAgitEnd:
+hideoffnpc strnpcinfo(0);
+end;
+
+}
+
+pvp_ev	mapflag	nobranch
+pvp_ev	mapflag	nomemo
+pvp_ev	mapflag	nosave
+pvp_ev	mapflag	noteleport
+pvp_ev	mapflag	nowarp
+pvp_ev	mapflag	nowarpto
+pvp_ev	mapflag	nomvploot
+pvp_ev	mapflag	loadevent
+pvp_ev	mapflag	pvp
+pvp_ev	mapflag	pvp_noguild

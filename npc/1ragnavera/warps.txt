@@ -1,0 +1,9 @@
+veratemple,178,148,0	warp	veratemple_1-1	1,1,mainhall,96,245
+mainhall,96,242,0	warp	mainhall_1-1	1,1,veratemple,178,145
+
+mainhall,187,114,0	warp	mainhall_1-2	1,1,veratemple,56,145
+veratemple,56,148,0	warp	veratemple_1-2	1,1,mainhall,190,114
+
+veratemple,77,150,0	warp	veratemple_1-3	1,1,mainhall,34,50
+mainhall,31,50,0	warp	mainhall_1-3	1,1,veratemple,77,147
+

@@ -1,0 +1,166 @@
+mainhall,114,299,3	script	Socket Enchantment	84,{
+	if (checkweight(1201,1) == 0)
+	{
+		mes "- Wait a minute !! -";
+		mes "- Currently you're carrying -";
+		mes "- too many items with you. -";
+		mes "- Please try again -";
+		mes "- after you lose some weight. -";
+		close;
+	}
+	mes "[Seiyablem]";
+	mes "I'm an engineer that specializes in adding Slots to normal Weapons and Armor.";
+	mes "My service fee, the required materials and the chance of success all depend on the specific item I'm working on.";
+	next;
+	mes "[Seiyablem]";
+	mes "Adding Slots may seem simple, but it's far more complicated than it looks.";
+	mes "If you're interested in my service, let me know.";
+	next;
+	switch(select("Add Slot to Weapon:Slot Attempt Info:Cancel"))
+	{
+		case 1:
+			mes "[Seiyablem]";
+			mes "You want to add a Slot to a weapon?";
+			mes "Now, I can only upgrade certain equipment in that class, so please choose one of the following items, so we can try to add a Slot to it.";
+			mes "Which weapon would you like to try?";
+			next;
+			switch(select("Dagger:Sword:Spear:Bow:Knuckle:Axe:Katar:Staff:Book:Violin:Whip:Gun:Shuriken")){
+				case 1: callfunc "Func_Socket",31500,32000,40,51,5000,30121,1;
+				case 2: callfunc "Func_Socket",31501,32001,40,51,5000,30121,1;
+				case 3: callfunc "Func_Socket",31502,32002,40,51,5000,30121,1;
+				case 4: callfunc "Func_Socket",31503,32003,40,51,5000,30121,1;
+				case 5: callfunc "Func_Socket",31504,32004,40,51,5000,30121,1;
+				case 6: callfunc "Func_Socket",31505,32005,40,51,5000,30121,1;
+				case 7: callfunc "Func_Socket",31506,32006,40,51,5000,30121,1;
+				case 8: callfunc "Func_Socket",31507,32007,40,51,5000,30121,1;
+				case 9: callfunc "Func_Socket",31508,32008,40,51,5000,30121,1;
+				case 10: callfunc "Func_Socket",31509,32009,40,51,5000,30121,1;
+				case 11: callfunc "Func_Socket",31510,32010,40,51,5000,30121,1;
+				case 12: callfunc "Func_Socket",31511,32011,40,51,5000,30121,1;
+				case 13: callfunc "Func_Socket",31512,32012,40,51,5000,30121,1;
+			}
+		case 2:
+			mes "[Seiyablem]";
+			mes "Well, I haven't really refined the art of Slot Addition.";
+			mes "It's so complicated that I'd be lying if I told you that I knew every factor that affected the process.";
+			mes "Still, I do notice a few trends...";
+			next;
+			mes "[Seiyablem]";
+			mes "In some towns, Slot addition attempts are more successful for equipment with fewer upgrades.";
+			mes "In other towns, the opposite is true.";
+			mes "isn't that really peculiar?";
+			next;
+			mes "[Seiyablem]";
+			mes "Oh, there's also something really important that you should know.";
+			mes "If you ask me to add a Slot to something, make sure that you don't have multiples of it in your inventory.";
+			next;
+			mes "[Seiyablem]";
+			mes "Here's an example: if you have a +7 Manteau and a normal Manteau in your inventory, then I will randomly pick one of them for my Slot Addition attempt.";
+			mes "Just remember to be careful.";
+			next;
+			mes "[Seiyablem]";
+			mes "Again, ^FF0000only carry one of the equipment to which you want me to add a Slot^000000.";
+			mes "All other equipment with the same name should be placed in your Kafra Storage, got it?";
+			close;
+		case 3:
+			mes "[Seiyablem]";
+			mes "Take it easy, adventurer.";
+			mes "If you ever want to try adding a Slot to some of your equipment, come back and let me know.";
+			mes "Seeya~";
+			close;
+	}
+}
+
+function	script	Func_Socket	{
+	.@item_id = getarg(0);
+	.@zeny_req = getarg(4);
+	setarray .@item_req[0], getarg(5), getarg(7,0);
+	setarray .@req_amount[0], getarg(6), getarg(8,0);
+
+	disable_items;
+	mes "[Seiyablem]";
+	mes "You want to add a Slot to a "+ getitemname(.@item_id) +"?";
+	mes "Alright, please bring me ^FF0000"+ .@req_amount[0] +" "+ getitemname(.@item_req[0]) + (.@req_amount[0] > 1 && .@item_req[0] != 999 ? "s":"") +"^000000, "+ (.@item_req[1] != 0 && .@req_amount[1] != 0 ? ("^FF0000"+ .@req_amount[1] +" "+ getitemname(.@item_req[1]) + (.@req_amount[1] > 1 && .@item_req[1] != 999 ? "s":"") + "^000000 ") : "") + "and my ^FF0000" + (.@zeny_req >= 1000 ? (.@zeny_req /1000 +",000") : .@zeny_req) +",000 zeny^000000 service fee.";
+	mes "Ah, and don't forget to bring that "+ getitemname(.@item_id) +"!";
+	next;
+	mes "[Seiyablem]";
+	if (getiteminfo(.@item_id, ITEMINFO_LOCATIONS) & EQP_HAND_R) // weapon
+	{
+		mes "I can try to add a slot now if you have the required items and zeny.";
+		mes "However, you should know that there's a chance that I might fail.";
+		mes "Therefore, I need to give you a fair warning...";
+		next;
+		mes "[Seiyablem]";
+		mes "If this attempt to add a Slot to your Weapon fails, then the ^FF0000Weapon^000000, ^FF0000and any Cards compounded to it will be destroyed^000000.";
+	}
+	else // armor
+	{
+		mes "If you have all the required materials, my zeny service fee and the Armor, then we can go ahead with the Slot Addition attempt.";
+		mes "But before that, I must warn you of the risk.";
+		next;
+		mes "[Seiyablem]";
+		mes "If this attempt to add a Slot to your Armor fails, then the ^FF0000Armor^000000, ^FF0000it's upgrades^000000 ^FF0000and any Cards compounded to it will be destroyed^000000.";
+	}
+	mes "Do you still want to try to add a Slot?";
+	next;
+	switch(select("Attempt Slot Addition:Cancel"))
+	{
+		case 1:
+			if ((Zeny >= .@zeny_req*1000) && countitem(.@item_req[0]) >= .@req_amount[0] && countitem(getarg(7,512)) >= .@req_amount[1] && countitem(.@item_id) > 0)// if there's no getarg(7) and getarg(8) provided, check itemcount against 0 (we still need a valid item ID though)
+			{
+				mes "[Seiyablem]";
+				mes "Alright then, let the work begin!";
+				mes "You'd better pray for a successful result.";
+				next;
+				set .@a, rand(1,100);
+				if ((.@a > getarg(2)) && (.@a < getarg(3)))
+				{
+					specialeffect getarg(3) == 51 ? EF_LORD : EF_SANCTUARY; // only S Class items have Lord of Vermillion effect
+					mes "[Seiyablem]";
+					mes "Great, it seems to be successful.";
+					mes "It looks pretty well done. Congratulations!";
+					delitem .@item_id,1;
+					delitem .@item_req[0],.@req_amount[0];
+					if (.@item_req[1] != 0 && .@req_amount[1] != 0)
+						delitem .@item_req[1],.@req_amount[1];
+					Zeny = Zeny - .@zeny_req *1000;
+					getitem getarg(1),1;
+					next;
+					mes "[Seiyablem]";
+					mes "See you again, buddy!";
+					close;
+				}
+				else
+				{
+					specialeffect EF_SUI_EXPLOSION;
+					mes "[Seiyablem]";
+					mes "Wah! ...I am so sorry, it failed.";
+					mes "However, I am completely innocent.";
+					mes "This is your luck, and it is destined by god, okay?";
+					mes "Don't be so disappointed, and try next time.";
+					delitem .@item_id,1;
+					delitem .@item_req[0],.@req_amount[0];
+					if (.@item_req[1] != 0 && .@req_amount[1] != 0)
+						delitem .@item_req[1],.@req_amount[1];
+					Zeny = Zeny - .@zeny_req *1000;
+					next;
+					mes "[Seiyablem]";
+					mes "I wish you good luck next time!";
+					close;
+				}
+			}
+			else
+			{
+				mes "[Seiyablem]";
+				mes "I'd like to go ahead with this Slot Addition attempt, but you're missing a few things.";
+				mes "You sure that you have the equipment, required materials and the zeny?";
+				close;
+			}
+		case 2:
+			mes "[Seiyablem]";
+			mes "Need some time to think about it, huh?";
+			mes "Alright, I can understand.";
+			mes "Just remember that life's no fun if you're always playing it safe~";
+			close;
+	}
+}

@@ -1,0 +1,29 @@
+veratemple,131,122,3	script	Sign Board#veratemple	857,{
+	set @NPC$,"[ Sign Board ]";
+	
+	mes @NPC$;
+	mes "I'm just a board, I should not talk.";
+	if(getgmlevel() > 99){
+		next;
+		switch(select("Reset Message:Input Message")){
+			case 1:
+				close2;
+				while (1) {
+					showscript "Current GOTM Prize Pool: "+.@inputPrizePool$+"", getnpcid(0);
+					sleep 1000;
+					end;
+				}
+			case 2:
+			mes "Please input your message.";
+			next;
+			input .@inputPrizePool$;
+			close2;
+			while (1) {
+				showscript "Current GOTM Prize Pool: "+.@inputPrizePool$+"", getnpcid(0);
+				sleep 1000;
+			}
+		}
+		
+	}
+	end;
+}

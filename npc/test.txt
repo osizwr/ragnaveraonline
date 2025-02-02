@@ -1,0 +1,65 @@
+prontera,150,150,5	script	Redeem NPC	757,{
+
+if (getgmlevel() == 100) {
+	goto OnGMCreateCode;
+}
+
+mes "[Redeem NPC]";
+mes "Please enter your redeem code:";
+input .@code$;
+
+// Check if the code exists
+query_sql("SELECT item_id, item_quantity FROM redeem_codes WHERE code = ?", .@code$, .@item_id, .@item_quantity);
+
+if (.@item_id) {
+	// Check if the player already redeemed it (by account or IP)
+	query_sql("SELECT 1 FROM redeem_redemptions WHERE code = ? AND (account_id = ? OR ip_address = ?)", 
+		.@code$, getcharid(3), #last_ip, .@already_redeemed);
+
+	if (.@already_redeemed) {
+		mes "^FF0000[ERROR]^000000 You have already redeemed this code or someone with the same IP has.";
+	} else {
+		// Redeem the code
+		getitem .@item_id, .@item_quantity;
+		query_sql("INSERT INTO redeem_redemptions (code, account_id, ip_address) VALUES (?, ?, ?)", 
+			.@code$, getcharid(3), #last_ip);
+		mes "Congratulations! You have received your reward.";
+		mes "Item: ^00FF00" + getitemname(.@item_id) + "^000000 x" + .@item_quantity;
+	}
+} else {
+	mes "^FF0000[ERROR]^000000 Invalid or expired code.";
+}
+
+close;
+
+OnGMCreateCode:
+mes "[GM Redeem Code Creator]";
+mes "Enter the code to create:";
+input .@new_code$;
+
+mes "Enter the item ID:";
+input .@item_id;
+
+mes "Enter the item quantity:";
+input .@item_quantity;
+
+if (.@item_quantity <= 0 || .@item_id <= 0) {
+	mes "^FF0000[ERROR]^000000 Invalid item or quantity.";
+	close;
+}
+
+// Check if the code already exists
+query_sql("SELECT 1 FROM redeem_codes WHERE code = ?", .@new_code$, .@exists);
+
+if (.@exists) {
+	mes "^FF0000[ERROR]^000000 This code already exists.";
+} else {
+	query_sql("INSERT INTO redeem_codes (code, item_id, item_quantity, gm_creator) VALUES (?, ?, ?, ?)", 
+		.@new_code$, .@item_id, .@item_quantity, strcharinfo(0));
+	mes "Code successfully created!";
+	mes "Code: ^00FF00" + .@new_code$ + "^000000";
+	mes "Item: ^00FF00" + getitemname(.@item_id) + "^000000 x" + .@item_quantity;
+}
+close;
+
+}
