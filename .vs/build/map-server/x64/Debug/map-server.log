@@ -1,0 +1,169 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(513,5): warning MSB8003: The WindowsSDKDir property is not defined. Some build tools may not be found.
+  achievement.cpp
+  atcommand.cpp
+  battle.cpp
+  battleground.cpp
+  buyingstore.cpp
+  cashshop.cpp
+  channel.cpp
+  chat.cpp
+  chrif.cpp
+  clan.cpp
+  clif.cpp
+  date.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/channel.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\yvals.h(20,10): error C1083: Cannot open include file: 'crtdbg.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/cashshop.cpp')
+  
+  duel.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\yvals.h(20,10): error C1083: Cannot open include file: 'crtdbg.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/battleground.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/buyingstore.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/atcommand.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstdlib(11,10): error C1083: Cannot open include file: 'math.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/achievement.cpp')
+  
+  elemental.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\ctime(11,10): error C1083: Cannot open include file: 'time.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/clan.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstdlib(11,10): error C1083: Cannot open include file: 'math.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/chat.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\ctime(11,10): error C1083: Cannot open include file: 'time.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/chrif.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/date.cpp')
+  
+  guild.cpp
+  homunculus.cpp
+  instance.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/duel.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\yvals.h(20,10): error C1083: Cannot open include file: 'crtdbg.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/elemental.cpp')
+  
+  intif.cpp
+  itemdb.cpp
+  log.cpp
+  mail.cpp
+  map.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\yvals.h(20,10): error C1083: Cannot open include file: 'crtdbg.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/battle.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstdlib(11,10): error C1083: Cannot open include file: 'math.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/instance.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\yvals.h(20,10): error C1083: Cannot open include file: 'crtdbg.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/homunculus.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/guild.cpp')
+  
+  mapreg.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstddef(11,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/itemdb.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstdlib(11,10): error C1083: Cannot open include file: 'math.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/clif.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstdlib(11,10): error C1083: Cannot open include file: 'math.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/map.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/log.cpp')
+  
+  mercenary.cpp
+  mob.cpp
+  navi.cpp
+  npc.cpp
+  npc_chat.cpp
+  party.cpp
+  path.cpp
+  pc.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\ctime(11,10): error C1083: Cannot open include file: 'time.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/mail.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstdlib(11,10): error C1083: Cannot open include file: 'math.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/intif.cpp')
+  
+  pc_groups.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/mapreg.cpp')
+  
+  pet.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstddef(11,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/npc.cpp')
+  
+  quest.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstddef(11,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/npc_chat.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\ctime(11,10): error C1083: Cannot open include file: 'time.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/party.cpp')
+  
+  script.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/mercenary.cpp')
+  
+  searchstore.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/navi.cpp')
+  
+  skill.cpp
+  status.cpp
+  storage.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/path.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\yvals.h(20,10): error C1083: Cannot open include file: 'crtdbg.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/pc.cpp')
+  
+D:\(6,10): error C1083: Cannot open include file: 'string.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/script.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\yvals.h(20,10): error C1083: Cannot open include file: 'crtdbg.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/pc_groups.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstdlib(11,10): error C1083: Cannot open include file: 'math.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/mob.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\yvals.h(20,10): error C1083: Cannot open include file: 'crtdbg.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/searchstore.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/pet.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstdlib(11,10): error C1083: Cannot open include file: 'math.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/status.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\yvals.h(20,10): error C1083: Cannot open include file: 'crtdbg.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/quest.cpp')
+  
+  trade.cpp
+  unit.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\yvals.h(20,10): error C1083: Cannot open include file: 'crtdbg.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/skill.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\yvals.h(20,10): error C1083: Cannot open include file: 'crtdbg.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/storage.cpp')
+  
+  vending.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/unit.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/trade.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cinttypes(12,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/src/map/vending.cpp')
+  

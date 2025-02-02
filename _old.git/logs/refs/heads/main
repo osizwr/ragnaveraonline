@@ -1,0 +1,26 @@
+0000000000000000000000000000000000000000 4e84775b733613cf1b411445a0cc502fec500785 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729588601 +0800	commit (initial): AbysalRO Trunk File
+4e84775b733613cf1b411445a0cc502fec500785 b75cd33241878057acda309560487241215f4da4 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729758901 +0800	commit: Battle Config Update
+b75cd33241878057acda309560487241215f4da4 c68b40cf71c5bcbdccf44c16d800aeae88c205be Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729758927 +0800	commit: Added New Map
+c68b40cf71c5bcbdccf44c16d800aeae88c205be e72e31bae4da70cca0a3a344ffe6aaa133323df3 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729758942 +0800	commit: Config New Channel
+e72e31bae4da70cca0a3a344ffe6aaa133323df3 3da22b1397d62d3f9472b8eabe5a54d6117e8b8d Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729759018 +0800	commit: Fix Guild Storage @gstorage
+3da22b1397d62d3f9472b8eabe5a54d6117e8b8d abeeee9ec04198903cb64343a3740eecfc8bd18a Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729759049 +0800	commit: Reconfigure NPC Conf
+abeeee9ec04198903cb64343a3740eecfc8bd18a 01dc8229b126cf32875ed5b1dc31e2f4ff4ff40a Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729759074 +0800	commit: Change Base & Job maxLevel to 255/120
+01dc8229b126cf32875ed5b1dc31e2f4ff4ff40a 57256bd55cf35f0ec365ef4ce0ba58b1487f95f3 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729759100 +0800	commit: removeGuildFlagOnProntera
+57256bd55cf35f0ec365ef4ce0ba58b1487f95f3 f2f22998ec0763f4e0ebb6e998d48f87d1c97a60 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729759132 +0800	commit: remove npc
+f2f22998ec0763f4e0ebb6e998d48f87d1c97a60 36ae51360363592608e90d0ca0c5118bca868707 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729759134 +0800	commit: Update web_athena.conf
+36ae51360363592608e90d0ca0c5118bca868707 fdedcfe8d3dc5dd6104876d3eb125ae85e44bc44 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729868936 +0800	commit: Add New NPC
+fdedcfe8d3dc5dd6104876d3eb125ae85e44bc44 f95faaf61cbb96826f80e22357d3064f2092c994 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729869848 +0800	pull: fast-forward
+f95faaf61cbb96826f80e22357d3064f2092c994 34bbcf1d6a5396729f9570dac5cef3ee008b3384 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729869990 +0800	pull --ff --recurse-submodules --progress origin: Fast-forward
+34bbcf1d6a5396729f9570dac5cef3ee008b3384 7186a49ab5e9a82665d40f725d56948e008e2031 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729988050 +0800	commit: Added Refiner NPC & Func
+7186a49ab5e9a82665d40f725d56948e008e2031 0203e6e95e2a39c7a6fdeb9bd28107ed8c26433c Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729988085 +0800	commit: Add refiner NPC & Func to server
+0203e6e95e2a39c7a6fdeb9bd28107ed8c26433c 417165d3923697eab68830c5ee36bea3f2d32943 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729988097 +0800	commit: Testing Gold Room npc
+417165d3923697eab68830c5ee36bea3f2d32943 1ce17e300e07ac797cfdf75a23f55ab1c0538a9b Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729988123 +0800	commit: Create kafra.txt
+1ce17e300e07ac797cfdf75a23f55ab1c0538a9b 8bbb6eb5abb64a25a8cc43cb4d0de55e5a29fb9a Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729988125 +0800	commit: Update healer.txt
+8bbb6eb5abb64a25a8cc43cb4d0de55e5a29fb9a 2a0b11db5ea9532ef8fa55c6ef3b57acada66aea Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729988129 +0800	commit: Update refine.yml
+2a0b11db5ea9532ef8fa55c6ef3b57acada66aea 043a8cf6cc259a69871ae8765dd0cf16d8bd2be8 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729988312 +0800	commit: Update .gitignore
+043a8cf6cc259a69871ae8765dd0cf16d8bd2be8 03c46c5bd283ac5385a23c8a4334098ec115b966 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729988415 +0800	commit: Update .gitignore
+03c46c5bd283ac5385a23c8a4334098ec115b966 4528ee87dd84e359e47679b6ea012443c4301bfc Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1729988512 +0800	commit: Add import & custom file
+4528ee87dd84e359e47679b6ea012443c4301bfc bf41167c3c35394ff9b95b6c81aca88a901527f0 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1730035400 +0800	commit: test npcs
+bf41167c3c35394ff9b95b6c81aca88a901527f0 08bbcae624bbc20d7bb849cb2599060c23eb9efa Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1732120663 +0800	commit: removed gitignore
+08bbcae624bbc20d7bb849cb2599060c23eb9efa 047d5808e59b47720f7866da9acf0c66bea503b0 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1732121422 +0800	commit (merge): Merge branch 'main' of https://github.com/osizwr/Private-Ragnarok-Online-Trunk-File
+047d5808e59b47720f7866da9acf0c66bea503b0 93dca8c6e7073273f403156b6947aca896d22769 Marvin Joseph <147320510+ImPresence2001@users.noreply.github.com> 1734716807 +0800	commit: Update item_db.yml

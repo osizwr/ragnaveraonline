@@ -1,0 +1,54 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(513,5): warning MSB8003: The WindowsSDKDir property is not defined. Some build tools may not be found.
+  common.cpp
+  node.cpp
+  parse.cpp
+  preprocess.cpp
+  tree.cpp
+  base64.cpp
+  char_traits.cpp
+  error.cpp
+  format.cpp
+  language.cpp
+  memory_resource.cpp
+  memory_util.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstddef(11,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/src/c4/yml/common.cpp')
+  
+  time.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstddef(11,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/src/c4/yml/node.cpp')
+  
+D:\(38,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/ext/c4core/src/c4/base64.cpp')
+  
+D:\(5,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/src/c4/yml/parse.cpp')
+  
+  utf.cpp
+D:\(5,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/ext/c4core/src/c4/error.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\cstddef(11,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/src/c4/yml/preprocess.cpp')
+  
+D:\(38,10): error C1083: Cannot open include file: 'inttypes.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/ext/c4core/src/c4/format.cpp')
+  
+D:\(5,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/ext/c4core/src/c4/time.cpp')
+  
+D:\(5,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/ext/c4core/src/c4/char_traits.cpp')
+  
+D:\(5,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/src/c4/yml/tree.cpp')
+  
+D:\(6,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/ext/c4core/src/c4/utf.cpp')
+  
+D:\(5,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/ext/c4core/src/c4/memory_util.cpp')
+  
+D:\(5,10): error C1083: Cannot open include file: 'stddef.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/rapidyaml/ext/c4core/src/c4/memory_resource.cpp')
+  

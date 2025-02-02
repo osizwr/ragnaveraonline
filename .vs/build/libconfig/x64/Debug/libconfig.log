@@ -1,0 +1,21 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(513,5): warning MSB8003: The WindowsSDKDir property is not defined. Some build tools may not be found.
+  grammar.c
+  libconfig.c
+  scanctx.c
+  scanner.c
+  strbuf.c
+D:\(48,10): error C1083: Cannot open include file: 'stdio.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/libconfig/libconfig.c')
+  
+/grammar.y(33,10): error C1083: Cannot open include file: 'string.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/libconfig/grammar.c')
+  
+D:\(48,10): error C1083: Cannot open include file: 'stdio.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/libconfig/scanctx.c')
+  
+D:\(28,10): error C1083: Cannot open include file: 'string.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/libconfig/strbuf.c')
+  
+/scanner.c(25,10): error C1083: Cannot open include file: 'stdio.h': No such file or directory
+  (compiling source file '../../../../#0%20Yet%20Another%20Ragnarok%20Dream/ragnaVeraTrunk/3rdparty/libconfig/scanner.c')
+  
